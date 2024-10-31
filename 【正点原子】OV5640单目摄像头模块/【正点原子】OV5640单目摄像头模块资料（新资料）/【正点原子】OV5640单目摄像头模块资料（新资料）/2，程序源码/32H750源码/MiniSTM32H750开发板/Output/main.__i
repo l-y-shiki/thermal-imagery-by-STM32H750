@@ -1,0 +1,6 @@
+--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\STM32H7xx_HAL_Driver\Inc -I ..\..\Drivers\CMSIS\Include -I ..\..\Middlewares -I ..\..\Drivers -I ..\..\User -I ..\..\..\MiniSTM32H750¿ª·¢°å -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Source
+-I.\RTE\_ATK-MC5640
+-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include
+-IC:\Keil_v5\ARM\CMSIS\Include
+-D__UVISION_VERSION="524" -DSTM32H750xx -DSTM32H750xx -DUSE_HAL_DRIVER
+-o ..\..\output\main.o --depend ..\..\output\main.d "..\..\User\main.c"
