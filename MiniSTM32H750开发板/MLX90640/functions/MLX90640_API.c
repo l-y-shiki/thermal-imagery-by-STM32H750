@@ -263,7 +263,7 @@ int MLX90640_GetCurMode(uint8_t slaveAddr)
 
 //------------------------------------------------------------------------------
 __attribute__((section("RAMCODE")))
-void MLX90640_CalculateTo(uint16_t *frameData, const paramsMLX90640 *params, float emissivity, float tr, uint16_t *result)
+void MLX90640_CalculateTo1(uint16_t *frameData, const paramsMLX90640 *params, float emissivity, float tr, uint16_t *result)
 {
     float vdd;
     float ta;

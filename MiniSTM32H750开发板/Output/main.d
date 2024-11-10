@@ -103,10 +103,10 @@
 ..\..\output\main.o: ..\..\Drivers\./SYSTEM/delay/delay.h
 ..\..\output\main.o: ..\..\Drivers\./SYSTEM/usart/usart.h
 ..\..\output\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\..\output\main.o: ..\..\Drivers\./BSP/LED/led.h
-..\..\output\main.o: ..\..\Drivers\./BSP/KEY/key.h
 ..\..\output\main.o: ..\..\Drivers\./BSP/MPU/mpu.h
 ..\..\output\main.o: ..\..\Drivers\./BSP/ATK_MD0430/atk_md0430.h
 ..\..\output\main.o: ..\..\Drivers\./BSP/ATK_MD0430/atk_md0430_touch.h
 ..\..\output\main.o: ..\..\Drivers\./BSP/ATK_MD0430/atk_md0430.h
+..\..\output\main.o: ..\..\User\MLX90640_API.h
+..\..\output\main.o: ..\..\MLX90640\headers\MYMLX90640_I2C_Driver.h
 ..\..\output\main.o: ..\..\User\demo.h

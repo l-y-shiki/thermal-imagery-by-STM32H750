@@ -25,7 +25,7 @@
  * higher frequency.
  */
  
-#include "MLX90640_I2C_Driver.h"
+#include "MYMLX90640_I2C_Driver.h"
 #include "./SYSTEM/delay/delay.h"
 
 //#define Wait(freqCnt) freqCnt++
@@ -48,16 +48,25 @@ void MLX90640_I2CInit()
 	
 	__HAL_RCC_GPIOB_CLK_ENABLE();           //开启GPIOB时钟
 	 
-	GPIO_Initure.Pin=GPIO_PIN_6|GPIO_PIN_7; //PB6、PB7
+	GPIO_Initure.Pin=GPIO_PIN_9; //scl PB9
 	GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP;  //推挽输出
 	GPIO_Initure.Pull=GPIO_PULLUP;          //上拉
 	GPIO_Initure.Speed=GPIO_SPEED_FREQ_HIGH;//高速
+		HAL_GPIO_Init(GPIOB,&GPIO_Initure);
+	
+		GPIO_Initure.Pin=GPIO_PIN_8; //sda PB8
+	GPIO_Initure.Mode=GPIO_MODE_OUTPUT_OD;  //推挽输出
 	
 	HAL_GPIO_Init(GPIOB,&GPIO_Initure);	 
 	
-	IIC_SCL_HIGH();
-	IIC_SDA_HIGH();
 	
+//	IIC_SCL_HIGH();
+//	IIC_SDA_HIGH();
+	    I2CStop();
+	
+	
+	printf("SDA:%d\n",HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8));
+	printf("SCL:%d\n",HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_9));
 }
     
 int MLX90640_I2CRead(uint8_t slaveAddr, uint16_t startAddress,uint16_t nMemAddressRead, uint16_t *data)
@@ -75,10 +84,10 @@ int MLX90640_I2CRead(uint8_t slaveAddr, uint16_t startAddress,uint16_t nMemAddre
     cmd[0] = startAddress >> 8;
     cmd[1] = startAddress & 0x00FF;
     
-    I2CStop();
-    delay_us(1);  
+//    I2CStop();
+//    delay_us(5);  
     I2CStart();
-    delay_us(1);  
+    delay_us(5);  
     
     ack = I2CSendByte(sa)!=0;
     if(ack != 0)
@@ -92,7 +101,7 @@ int MLX90640_I2CRead(uint8_t slaveAddr, uint16_t startAddress,uint16_t nMemAddre
         return -1;
     }
     
-    ack = I2CSendByte(cmd[1])!=0;    
+    ack = I2CSendByte(cmd[1])!=0;  
     if(ack != 0)
     {
         return -1;
@@ -110,13 +119,15 @@ int MLX90640_I2CRead(uint8_t slaveAddr, uint16_t startAddress,uint16_t nMemAddre
         
     I2CReadBytes((nMemAddressRead << 1), i2cData);
               
-    I2CStop();   
+    I2CStop();  
 
     for(cnt=0; cnt < nMemAddressRead; cnt++)
     {
         i = cnt << 1;
         *p++ = (int)i2cData[i]*256 + (int)i2cData[i+1];
     } 
+		 
+		
     return 0;
   
 } 
@@ -140,7 +151,7 @@ int MLX90640_I2CWrite(uint8_t slaveAddr, uint16_t writeAddress, uint16_t data)
     cmd[3] = data & 0x00FF;
 
     I2CStop();
-    delay_us(1);  
+    delay_us(5);  
     I2CStart();
     ack = I2CSendByte(sa);
     if (ack != 0x00)
@@ -186,15 +197,16 @@ int I2CSendByte(int8_t data)
        {
            IIC_SDA_LOW();
        }
-    delay_us(1);  
+    delay_us(5);  
        IIC_SCL_HIGH();
     delay_us(1);  
     delay_us(1);  
        IIC_SCL_LOW();
+			 if(i==7)
+				 IIC_SDA_HIGH();
        byte = byte<<1;        
    }    
-   
-    delay_us(1);  
+    delay_us(5);  
    ack = I2CReceiveAck();
    
    return ack; 
@@ -205,21 +217,21 @@ void I2CReadBytes(int nBytes, char *dataP)
     char data;
     for(int j=0;j<nBytes;j++)
     {
-    delay_us(1);  
+    delay_us(5);  
         IIC_SDA_HIGH();    
         
         data = 0;
         for(int i=0;i<8;i++){
-    delay_us(1);  
+    delay_us(5);  
             IIC_SCL_HIGH();
-    delay_us(1);  
+    delay_us(5);  
             data = data<<1;
-            if(IIC_SDA_READ()){
+            if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8)){
                 data = data+1;  
             }
-    delay_us(1);  
+    delay_us(5);  
             IIC_SCL_LOW();
-    delay_us(1);  
+    delay_us(5);  
         }  
         
         if(j == (nBytes-1))
@@ -242,12 +254,11 @@ void I2CStart(void)
 {
     IIC_SDA_HIGH();
     IIC_SCL_HIGH();
-    delay_us(1);  
-    delay_us(1);  
+    delay_us(2);  
     IIC_SDA_LOW();
-    delay_us(1);  
+    delay_us(2);  
     IIC_SCL_LOW();
-    delay_us(1);     
+    delay_us(2);     
     
 }
 
@@ -255,11 +266,11 @@ void I2CStop(void)
 {
     IIC_SCL_LOW();
     IIC_SDA_LOW();
-    delay_us(1);  
+    delay_us(2);  
     IIC_SCL_HIGH();
-    delay_us(1);  
+    delay_us(2);  
     IIC_SDA_HIGH();
-    delay_us(1);  
+    delay_us(2);  
 } 
  
 void I2CRepeatedStart(void)
@@ -279,11 +290,10 @@ void I2CRepeatedStart(void)
 void I2CSendACK(void)
 {
     IIC_SDA_LOW();
-    delay_us(1);  
+    delay_us(2);  
     IIC_SCL_HIGH();
-    delay_us(1);  
-    delay_us(1);  
-    IIC_SCL_LOW();
+    delay_us(2);   
+    IIC_SCL_LOW();  
     delay_us(1);  
     IIC_SDA_HIGH();
     
@@ -292,7 +302,7 @@ void I2CSendACK(void)
 void I2CSendNack(void)
 {
     IIC_SDA_HIGH();
-    delay_us(1);  
+    delay_us(2);  
     IIC_SCL_HIGH();
     delay_us(1);  
     delay_us(1);  
@@ -307,10 +317,10 @@ int I2CReceiveAck(void)
     int ack;
     
     IIC_SDA_HIGH();
-    delay_us(1);  
+    delay_us(5);  
     IIC_SCL_HIGH();
-    delay_us(1);  
-    if(IIC_SDA_READ() == 0)
+    delay_us(5);  
+    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8) == 0)
     {
         ack = 0;
     }
@@ -318,7 +328,7 @@ int I2CReceiveAck(void)
     {
         ack = 1;
     }
-    delay_us(1);         
+    delay_us(5);         
     IIC_SCL_LOW();
     IIC_SDA_LOW();
     

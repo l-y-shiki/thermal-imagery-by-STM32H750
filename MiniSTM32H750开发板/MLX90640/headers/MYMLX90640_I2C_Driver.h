@@ -22,24 +22,24 @@
 #endif
 
 #include <stdint.h>
-#include "main.h"
+#include "./SYSTEM/sys/sys.h"
 
 	 
 //IO方向设置
-#define SDA_IN()  {GPIOB->MODER&=~(3<<(7*2));GPIOB->MODER|=0<<7*2;}		//PB7设置输入
-#define SDA_OUT() {GPIOB->MODER&=~(3<<(7*2));GPIOB->MODER|=1<<7*2;}		//PB7设置输出
+#define SDA_IN()  {GPIOB->MODER&=~(3<<(8*2));GPIOB->MODER|=0<<8*2;}		//PB8设置输入
+#define SDA_OUT() {GPIOB->MODER&=~(3<<(8*2));GPIOB->MODER|=1<<8*2;}		//PB8设置输出
 
 //IO操作函数	
 /*********************************** IIC_SCL ******************************/
 
-#define IIC_SCL_LOW()             PBout(6)=0
-#define IIC_SCL_HIGH()            PBout(6)=1
+#define IIC_SCL_LOW()             HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9,GPIO_PIN_RESET);
+#define IIC_SCL_HIGH()            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9,GPIO_PIN_SET);
 
 /*********************************** IIC_SDA ******************************/
 
-#define IIC_SDA_LOW()             PBout(7)=0
-#define IIC_SDA_HIGH()            PBout(7)=1
-#define IIC_SDA_READ()            PBin(7)
+#define IIC_SDA_LOW()              HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8,GPIO_PIN_RESET);
+#define IIC_SDA_HIGH()             HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8,GPIO_PIN_SET);
+#define IIC_SDA_READ()             HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8);
 
 
 

@@ -4,7 +4,6 @@
 "..\..\output\stm32h7xx_it.o"
 "..\..\output\system_stm32h7xx.o"
 "..\..\output\demo.o"
-"..\..\output\mlx90640_api.o"
 "..\..\output\delay.o"
 "..\..\output\sys.o"
 "..\..\output\usart.o"
@@ -33,6 +32,8 @@
 "..\..\output\atk_md0430_fmc.o"
 "..\..\output\atk_md0430_touch.o"
 "..\..\output\atk_md0430_touch_iic.o"
+"..\..\output\mlx90640_api.o"
+"..\..\output\mlx90640_swi2c_driver.o"
 --diag_suppress 6314,6329 --strict --scatter "..\..\Output\atk_h750.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

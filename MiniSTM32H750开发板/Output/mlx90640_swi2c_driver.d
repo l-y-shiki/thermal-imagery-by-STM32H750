@@ -1,8 +1,6 @@
-..\..\output\mlx90640_swi2c_driver.o: ..\..\User\MLX90640\functions\MLX90640_SWI2C_Driver.c
-..\..\output\mlx90640_swi2c_driver.o: ..\..\User\MLX90640_I2C_Driver.h
+..\..\output\mlx90640_swi2c_driver.o: ..\..\MLX90640\functions\MLX90640_SWI2C_Driver.c
+..\..\output\mlx90640_swi2c_driver.o: ..\..\MLX90640\headers\MYMLX90640_I2C_Driver.h
 ..\..\output\mlx90640_swi2c_driver.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-..\..\output\mlx90640_swi2c_driver.o: ..\..\User\MLX90640_API.h
-..\..\output\mlx90640_swi2c_driver.o: ..\..\Drivers\./SYSTEM/delay/delay.h
 ..\..\output\mlx90640_swi2c_driver.o: ..\..\Drivers\./SYSTEM/sys/sys.h
 ..\..\output\mlx90640_swi2c_driver.o: ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h
 ..\..\output\mlx90640_swi2c_driver.o: ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h750xx.h
@@ -103,3 +101,4 @@
 ..\..\output\mlx90640_swi2c_driver.o: ..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_pcd_ex.h
 ..\..\output\mlx90640_swi2c_driver.o: ..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_hcd.h
 ..\..\output\mlx90640_swi2c_driver.o: ..\..\Drivers\CMSIS\Include\core_cm7.h
+..\..\output\mlx90640_swi2c_driver.o: ..\..\Drivers\./SYSTEM/delay/delay.h
