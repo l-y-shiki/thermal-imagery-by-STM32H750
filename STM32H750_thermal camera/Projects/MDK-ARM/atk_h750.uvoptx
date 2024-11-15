@@ -691,8 +691,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MLX90640\headers\MLX90640_API.h</PathWithFileName>
-      <FilenameWithoutPath>MLX90640_API.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\MLX90640\headers\MYMLX90640_I2C_Driver.h</PathWithFileName>
+      <FilenameWithoutPath>MYMLX90640_I2C_Driver.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -703,8 +703,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\MLX90640\headers\MYMLX90640_I2C_Driver.h</PathWithFileName>
-      <FilenameWithoutPath>MYMLX90640_I2C_Driver.h</FilenameWithoutPath>
+      <PathWithFileName>.\MLX90640.h</PathWithFileName>
+      <FilenameWithoutPath>MLX90640.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -715,8 +715,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\MLX90640.h</PathWithFileName>
-      <FilenameWithoutPath>MLX90640.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\MLX90640\headers\MYMLX90640_API.h</PathWithFileName>
+      <FilenameWithoutPath>MYMLX90640_API.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

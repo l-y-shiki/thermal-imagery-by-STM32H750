@@ -107,6 +107,6 @@
 ..\..\output\main.o: ..\..\Drivers\./BSP/ATK_MD0430/atk_md0430.h
 ..\..\output\main.o: ..\..\Drivers\./BSP/ATK_MD0430/atk_md0430_touch.h
 ..\..\output\main.o: ..\..\Drivers\./BSP/ATK_MD0430/atk_md0430.h
-..\..\output\main.o: ..\..\User\MLX90640_API.h
+..\..\output\main.o: ..\..\MLX90640\headers\MYMLX90640_API.h
 ..\..\output\main.o: ..\..\MLX90640\headers\MYMLX90640_I2C_Driver.h
 ..\..\output\main.o: ..\..\User\demo.h

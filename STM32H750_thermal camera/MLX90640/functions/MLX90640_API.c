@@ -14,8 +14,8 @@
  * limitations under the License.
  *
  */
-#include "MLX90640_I2C_Driver.h"
-#include <MLX90640_API.h>
+#include "MYMLX90640_I2C_Driver.h"
+#include <MYMLX90640_API.h>
 #include <math.h>
 
 void ExtractVDDParameters(uint16_t *eeData, paramsMLX90640 *mlx90640);
@@ -263,7 +263,7 @@ int MLX90640_GetCurMode(uint8_t slaveAddr)
 
 //------------------------------------------------------------------------------
 __attribute__((section("RAMCODE")))
-void MLX90640_CalculateTo1(uint16_t *frameData, const paramsMLX90640 *params, float emissivity, float tr, uint16_t *result)
+void MLX90640_CalculateTo(uint16_t *frameData, const paramsMLX90640 *params, float emissivity, float tr, float *result)
 {
     float vdd;
     float ta;
@@ -276,7 +276,7 @@ void MLX90640_CalculateTo1(uint16_t *frameData, const paramsMLX90640 *params, fl
     float alphaCompensated;
     uint8_t mode;
     int8_t ilPattern;
-    int8_t chessPattern;
+    int8_t chessPattern;	
     int8_t pattern;
     int8_t conversionPattern;
     float Sx;
@@ -388,7 +388,7 @@ void MLX90640_CalculateTo1(uint16_t *frameData, const paramsMLX90640 *params, fl
             }      
             
             To = sqrt(sqrt(irData / (alphaCompensated * alphaCorrR[range] * (1 + params->ksTo[range] * (To - params->ct[range]))) + taTr)) - 273.15;
-            
+         
             result[pixelNumber] = To*10+400;
         }
     }
