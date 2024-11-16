@@ -81,8 +81,10 @@ int MLX90640_GetFrameData(uint8_t slaveAddr, uint16_t *frameData)
         {
             return error;
         }    
+				printf("statusRegister::::%d\n",statusRegister);
         dataReady = statusRegister & 0x0008;
         cnt = cnt + 1;
+				printf("cnt:%d",cnt);
     }
     
     if(cnt > 4)
@@ -389,7 +391,7 @@ void MLX90640_CalculateTo(uint16_t *frameData, const paramsMLX90640 *params, flo
             
             To = sqrt(sqrt(irData / (alphaCompensated * alphaCorrR[range] * (1 + params->ksTo[range] * (To - params->ct[range]))) + taTr)) - 273.15;
          
-            result[pixelNumber] = To*10+400;
+            result[pixelNumber] = To;//*10+400;
         }
     }
 }

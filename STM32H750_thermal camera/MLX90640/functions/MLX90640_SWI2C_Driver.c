@@ -30,6 +30,7 @@
 
 //#define Wait(freqCnt) freqCnt++
 
+void Wait(int);
 int  I2CSendByte(int8_t);
 void I2CReadBytes(int, char *);
 void I2CStart(void);
@@ -39,8 +40,10 @@ void I2CSendACK(void);
 void I2CSendNack(void);
 int  I2CReceiveAck(void);
 
-//int freqCnt = 1;
-#define freqCnt 1
+
+int freqCnt = 1;
+//#define freqCnt 1
+
 
 void MLX90640_I2CInit()
 {   
@@ -55,8 +58,9 @@ void MLX90640_I2CInit()
 		HAL_GPIO_Init(GPIOB,&GPIO_Initure);
 	
 		GPIO_Initure.Pin=GPIO_PIN_8; //sda PB8
-	GPIO_Initure.Mode=GPIO_MODE_OUTPUT_OD;  //推挽输出
-	
+	GPIO_Initure.Mode=GPIO_MODE_OUTPUT_OD;  //开漏输出
+		GPIO_Initure.Pull=GPIO_PULLUP;          //上拉
+		GPIO_Initure.Speed=GPIO_SPEED_FREQ_HIGH;//高速
 	HAL_GPIO_Init(GPIOB,&GPIO_Initure);	 
 	
 	
@@ -84,10 +88,10 @@ int MLX90640_I2CRead(uint8_t slaveAddr, uint16_t startAddress,uint16_t nMemAddre
     cmd[0] = startAddress >> 8;
     cmd[1] = startAddress & 0x00FF;
     
-//    I2CStop();
-//    delay_us(5);  
+    I2CStop();
+    Wait(freqCnt);
     I2CStart();
-    delay_us(5);  
+    Wait(freqCnt);
     
     ack = I2CSendByte(sa)!=0;
     if(ack != 0)
@@ -151,7 +155,7 @@ int MLX90640_I2CWrite(uint8_t slaveAddr, uint16_t writeAddress, uint16_t data)
     cmd[3] = data & 0x00FF;
 
     I2CStop();
-    delay_us(5);  
+    Wait(freqCnt);
     I2CStart();
     ack = I2CSendByte(sa);
     if (ack != 0x00)
@@ -180,6 +184,15 @@ int MLX90640_I2CWrite(uint8_t slaveAddr, uint16_t writeAddress, uint16_t data)
     return 0;
 }
 
+void Wait(int freqCnt)
+{
+    int cnt;
+    for(int i = 0;i<freqCnt;i++)
+    {
+        cnt = cnt++; 
+    }    
+}
+
 int I2CSendByte(int8_t data)
 {
    int ack = 1;
@@ -187,7 +200,7 @@ int I2CSendByte(int8_t data)
    
    for(int i=0;i<8;i++)
    {
-    delay_us(1);  
+    Wait(freqCnt);
        
        if(byte & 0x80)
        {
@@ -197,16 +210,16 @@ int I2CSendByte(int8_t data)
        {
            IIC_SDA_LOW();
        }
-    delay_us(5);  
+   Wait(freqCnt);
        IIC_SCL_HIGH();
-    delay_us(1);  
-    delay_us(1);  
+    Wait(freqCnt); 
+    Wait(freqCnt);
        IIC_SCL_LOW();
-			 if(i==7)
-				 IIC_SDA_HIGH();
+//			 if(i==7)
+//				 IIC_SDA_HIGH();
        byte = byte<<1;        
    }    
-    delay_us(5);  
+    Wait(freqCnt);
    ack = I2CReceiveAck();
    
    return ack; 
@@ -217,21 +230,21 @@ void I2CReadBytes(int nBytes, char *dataP)
     char data;
     for(int j=0;j<nBytes;j++)
     {
-    delay_us(5);  
+   Wait(freqCnt);
         IIC_SDA_HIGH();    
         
         data = 0;
         for(int i=0;i<8;i++){
-    delay_us(5);  
+    Wait(freqCnt);  
             IIC_SCL_HIGH();
-    delay_us(5);  
+    Wait(freqCnt);  
             data = data<<1;
             if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8)){
                 data = data+1;  
             }
-    delay_us(5);  
+    Wait(freqCnt); 
             IIC_SCL_LOW();
-    delay_us(5);  
+    Wait(freqCnt);  
         }  
         
         if(j == (nBytes-1))
@@ -254,11 +267,11 @@ void I2CStart(void)
 {
     IIC_SDA_HIGH();
     IIC_SCL_HIGH();
-    delay_us(2);  
+   Wait(freqCnt); 
     IIC_SDA_LOW();
-    delay_us(2);  
+   Wait(freqCnt);  
     IIC_SCL_LOW();
-    delay_us(2);     
+    Wait(freqCnt);     
     
 }
 
@@ -266,23 +279,23 @@ void I2CStop(void)
 {
     IIC_SCL_LOW();
     IIC_SDA_LOW();
-    delay_us(2);  
+    Wait(freqCnt); 
     IIC_SCL_HIGH();
-    delay_us(2);  
+   Wait(freqCnt); 
     IIC_SDA_HIGH();
-    delay_us(2);  
+  Wait(freqCnt); 
 } 
  
 void I2CRepeatedStart(void)
 {
     IIC_SCL_LOW();
-    delay_us(1);  
+    Wait(freqCnt); 
     IIC_SDA_HIGH();
-    delay_us(1);  
+    Wait(freqCnt);  
     IIC_SCL_HIGH();
-    delay_us(1);  
+    Wait(freqCnt);  
     IIC_SDA_LOW();
-    delay_us(1);  
+    Wait(freqCnt); 
     IIC_SCL_LOW();
            
 }
@@ -290,11 +303,11 @@ void I2CRepeatedStart(void)
 void I2CSendACK(void)
 {
     IIC_SDA_LOW();
-    delay_us(2);  
+    Wait(freqCnt); 
     IIC_SCL_HIGH();
-    delay_us(2);   
+    Wait(freqCnt);   
     IIC_SCL_LOW();  
-    delay_us(1);  
+    Wait(freqCnt); 
     IIC_SDA_HIGH();
     
 }
@@ -302,12 +315,12 @@ void I2CSendACK(void)
 void I2CSendNack(void)
 {
     IIC_SDA_HIGH();
-    delay_us(2);  
+  Wait(freqCnt); 
     IIC_SCL_HIGH();
-    delay_us(1);  
-    delay_us(1);  
+    Wait(freqCnt);
+    Wait(freqCnt); 
     IIC_SCL_LOW();
-    delay_us(1);  
+    Wait(freqCnt);
     IIC_SDA_HIGH();
     
 }
@@ -317,9 +330,9 @@ int I2CReceiveAck(void)
     int ack;
     
     IIC_SDA_HIGH();
-    delay_us(5);  
+    Wait(freqCnt);  
     IIC_SCL_HIGH();
-    delay_us(5);  
+   Wait(freqCnt);
     if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8) == 0)
     {
         ack = 0;
@@ -328,7 +341,7 @@ int I2CReceiveAck(void)
     {
         ack = 1;
     }
-    delay_us(5);         
+   Wait(freqCnt);         
     IIC_SCL_LOW();
     IIC_SDA_LOW();
     

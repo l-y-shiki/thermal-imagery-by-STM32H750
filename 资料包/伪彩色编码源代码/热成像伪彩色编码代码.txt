@@ -1,0 +1,283 @@
+function GrayToPseColor(converMethod:TGrayColor_SubMeth;grayValue:Integer):TColor;//灰度-伪彩色变换
+var
+    colorR,colorG,colorB:Integer;
+begin
+    if converMethod=GCM_Pseudo1 then
+    begin
+        colorR:=Abs(0-grayValue);
+        colorG:=Abs(127-grayValue);
+        colorB:=Abs(255-grayValue);
+    end
+    else if converMethod=GCM_Pseudo2 then
+    begin
+        if ((grayValue>=0) and (grayValue<=63)) then
+        begin
+            colorR:=0;
+            colorG:=0;
+            colorB:=Round(grayValue/64*255);
+        end
+        else if ((grayValue>=64) and (grayValue<=127)) then
+        begin
+            colorR:=0;
+            colorG:=Round((grayValue-64)/64*255);
+            colorB:=Round((127-grayValue)/64*255);
+        end
+        else if ((grayValue>=128) and (grayValue<=191)) then
+        begin
+            colorR:=Round((grayValue-128)/64*255);
+            colorG:=255;
+            colorB:=0;
+        end
+        else if ((grayValue>=192) and (grayValue<=255)) then
+        begin
+            colorR:=255;
+            colorG:=Round((255-grayValue)/64*255);
+            colorB:=0;
+        end;
+    end
+    else if converMethod=GCM_Metal1 then
+    begin
+        if ((grayValue>=0) and (grayValue<=63)) then
+        begin
+            colorR:=0;
+            colorG:=0;
+            colorB:=Round(grayValue/64*255);
+        end
+        else if ((grayValue>=64) and (grayValue<=95)) then
+        begin
+            colorR:=Round((grayValue-63)/32*127);
+            colorG:=Round((grayValue-63)/32*127);
+            colorB:=255;
+        end
+        else if ((grayValue>=96) and (grayValue<=127)) then
+        begin
+            colorR:=Round((grayValue-95)/32*127)+128;
+            colorG:=Round((grayValue-95)/32*127)+128;
+            colorB:=Round((127-grayValue)/32*255);
+        end
+        else if ((grayValue>=128) and (grayValue<=191)) then
+        begin
+            colorR:=255;
+            colorG:=255;
+            colorB:=0;
+        end
+        else if ((grayValue>=192) and (grayValue<=255)) then
+        begin
+            colorR:=255;
+            colorG:=255;
+            colorB:=Round((grayValue-192)/64*255)
+        end;
+    end
+    else if converMethod=GCM_Metal2 then
+    begin
+        colorR:=0;colorG:=0;colorB:=0;
+        if ((grayValue>=0) and (grayValue<=16)) then
+        begin
+            colorR:=0;
+        end
+        else if ((grayValue>=17) and (grayValue<=140)) then
+        begin
+            colorR:=Round((grayValue-16)/(140-16)*255);
+        end
+        else if ((grayValue>=141) and (grayValue<=255)) then
+        begin
+            colorR:=255;
+        end;
+
+        if ((grayValue>=0) and (grayValue<=101)) then
+        begin
+            colorG:=0;
+        end
+        else if ((grayValue>=102) and (grayValue<=218)) then
+        begin
+            colorG:=Round((grayValue-101)/(218-101)*255);
+        end
+        else if ((grayValue>=219) and (grayValue<=255)) then
+        begin
+            colorG:=255;
+        end;
+
+        if ((grayValue>=0) and (grayValue<=91)) then
+        begin
+            colorB:=28+Round((grayValue-0)/(91-0)*100);
+        end
+        else if ((grayValue>=92) and (grayValue<=120)) then
+        begin
+            colorB:=Round((120-grayValue)/(120-91)*128);
+        end
+        else if ((grayValue>=129) and (grayValue<=214)) then
+        begin
+            colorB:=0;
+        end
+        else if ((grayValue>=215) and (grayValue<=255)) then
+        begin
+            colorB:=Round((grayValue-214)/(255-214)*255);
+        end;
+    end
+    else if converMethod=GCM_Rainbow1 then
+    begin
+        if ((grayValue>=0) and (grayValue<=31)) then
+        begin
+            colorR:=0;
+            colorG:=0;
+            colorB:=Round(grayValue/32*255);
+        end
+        else if ((grayValue>=32) and (grayValue<=63)) then
+        begin
+            colorR:=0;
+            colorG:=Round((grayValue-32)/32*255);
+            colorB:=255;
+        end
+        else if ((grayValue>=64) and (grayValue<=95)) then
+        begin
+            colorR:=0;
+            colorG:=255;
+            colorB:=Round((95-grayValue)/32*255);
+        end
+        else if ((grayValue>=96) and (grayValue<=127)) then
+        begin
+            colorR:=Round((grayValue-96)/32*255);
+            colorG:=255;
+            colorB:=0;
+        end
+        else if ((grayValue>=128) and (grayValue<=191)) then
+        begin
+            colorR:=255;
+            colorG:=Round((191-grayValue)/64*255);
+            colorB:=0;
+        end
+        else if ((grayValue>=192) and (grayValue<=255)) then
+        begin
+            colorR:=255;
+            colorG:=Round((grayValue-192)/64*255);//0
+            colorB:=Round((grayValue-192)/64*255);
+        end;
+    end
+    else if converMethod=GCM_Rainbow2 then
+    begin
+        if ((grayValue>=0) and (grayValue<=63)) then
+        begin
+            colorR:=0;
+            colorG:=Round((grayValue-0)/64*255);
+            colorB:=255;
+        end
+        else if ((grayValue>=64) and (grayValue<=95)) then
+        begin
+            colorR:=0;
+            colorG:=255;
+            colorB:=Round((95-grayValue)/32*255);
+        end
+        else if ((grayValue>=96) and (grayValue<=127)) then
+        begin
+            colorR:=Round((grayValue-96)/32*255);
+            colorG:=255;
+            colorB:=0;
+        end
+        else if ((grayValue>=128) and (grayValue<=191)) then
+        begin
+            colorR:=255;
+            colorG:=Round((191-grayValue)/64*255);
+            colorB:=0;
+        end
+        else if ((grayValue>=192) and (grayValue<=255)) then
+        begin
+            colorR:=255;
+            colorG:=Round((grayValue-192)/64*255);
+            colorB:=Round((grayValue-192)/64*255);
+        end;
+    end
+    else if converMethod=GCM_Rainbow3 then
+    begin
+        if ((grayValue>=0) and (grayValue<=51)) then
+        begin
+            colorR:=0;
+            colorG:=grayValue*5;
+            colorB:=255;
+        end
+        else if ((grayValue>=52) and (grayValue<=102)) then
+        begin
+            colorR:=0;
+            colorG:=255;
+            colorB:=255-(grayValue-51)*5;
+        end
+        else if ((grayValue>=103) and (grayValue<=153)) then
+        begin
+            colorR:=(grayValue-102)*5;
+            colorG:=255;
+            colorB:=0;
+        end
+        else if ((grayValue>=154) and (grayValue<=204)) then
+        begin
+            colorR:=255;
+            colorG:=Round(255-128*(grayValue-153)/51);
+            colorB:=0;
+        end
+        else if ((grayValue>=205) and (grayValue<=255)) then
+        begin
+            colorR:=255;
+            colorG:=Round(127-127*(grayValue-204)/51);
+            colorB:=0;
+        end;
+    end
+    else if converMethod=GCM_Zhou then
+    begin
+        if ((grayValue>=0) and (grayValue<=63)) then
+        begin
+            colorR:=0;
+            colorG:=Round((64-grayValue)/64*255);
+            colorB:=255;
+        end
+        else if ((grayValue>=64) and (grayValue<=127)) then
+        begin
+            colorR:=0;
+            colorG:=Round((grayValue-64)/64*255);
+            colorB:=Round((127-grayValue)/64*255);
+        end
+        else if ((grayValue>=128) and (grayValue<=191)) then
+        begin
+            colorR:=Round((grayValue-128)/64*255);
+            colorG:=255;
+            colorB:=0;
+        end
+        else if ((grayValue>=192) and (grayValue<=255)) then
+        begin
+            colorR:=255;
+            colorG:=Round((255-grayValue)/64*255);
+            colorB:=0;
+        end;
+    end
+    else if converMethod=GCM_Ning then
+    begin
+        if ((grayValue>=0) and (grayValue<=63)) then
+        begin
+            colorR:=0;
+            colorG:=254-4*grayValue;
+            colorB:=255;
+        end
+        else if ((grayValue>=64) and (grayValue<=127)) then
+        begin
+            colorR:=0;
+            colorG:=4*grayValue-254;
+            colorB:=510-4*grayValue;
+        end
+        else if ((grayValue>=128) and (grayValue<=191)) then
+        begin
+            colorR:=4*grayValue-510;
+            colorG:=255;
+            colorB:=0;
+        end
+        else if ((grayValue>=192) and (grayValue<=255)) then
+        begin
+            colorR:=255;
+            colorG:=1022-4*grayValue;
+            colorB:=0;
+        end;
+    end
+    else if converMethod=GCM_Gray then
+    begin
+        colorR:=grayValue;
+        colorG:=grayValue;
+        colorB:=grayValue;
+    end;
+    Result := colorB Shl 16 or colorG  shl 8 or colorR;
+end;
