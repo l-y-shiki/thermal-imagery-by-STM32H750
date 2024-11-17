@@ -30,39 +30,38 @@
 #include "demo.h"
 
 
-#define  FPS2HZ   0x02
-#define  FPS4HZ   0x03
-#define  FPS8HZ   0x04
-#define  FPS16HZ  0x05
-#define  FPS32HZ  0x06
+//#define  FPS2HZ   0x02
+//#define  FPS4HZ   0x03
+//#define  FPS8HZ   0x04
+//#define  FPS16HZ  0x05
+//#define  FPS32HZ  0x06
 
-#define  MLX90640_ADDR 0x33
-#define	 RefreshRate FPS4HZ  //推荐用4Hz，干扰少
-#define  TA_SHIFT 8          //Default shift for MLX90640 in open air
+//#define  MLX90640_ADDR 0x33
+//#define	 RefreshRate FPS4HZ  //推荐用4Hz，干扰少
+//#define  TA_SHIFT 8          //Default shift for MLX90640 in open air
 
 
-unsigned short EE[832];
-typedef union{
-	uint16_t mlx90640_Zoom10[834];  
-	uint8_t  DisBuf[10*320];
-	uint8_t  SPI_FLASH_BUF[4096];
-}UnionData;
+//typedef union{
+//	uint16_t mlx90640_Zoom10[834];  
+//	uint8_t  DisBuf[10*320];
+//	uint8_t  SPI_FLASH_BUF[4096];
+//}UnionData;
 
-typedef union{
-	float mlx90640To[768];
-	uint16_t databuf[640];  
-	uint8_t  bbb_data[512];
-}UnionData2;
+//typedef union{
+//	float mlx90640To[768];
+//	uint16_t databuf[640];  
+//	uint8_t  bbb_data[512];
+//}UnionData2;
 
-UnionData data;
-UnionData2 data2;
+//UnionData data;
+//UnionData2 data2;
 
-float Ta;
-float emissivity=0.95;
-int x_line=0,y_list=0;
-int pin_x=0,pin_y=0;
+//float Ta;
+//float emissivity=0.95;
+//int x_line=0,y_list=0;
+//int pin_x=0,pin_y=0;
 
-paramsMLX90640 mlx90640;
+//paramsMLX90640 mlx90640;
 
 
 /**
@@ -83,35 +82,34 @@ void show_mesg(void)
 }
 
 
-uint8_t Mlx90640_Get_Frame(void)
-{
-		uint8_t flag = 0;
-		uint16_t status = 0;
-	
-				MLX90640_I2CRead(MLX90640_ADDR, 0x8000, 1, &status);
+//uint8_t Mlx90640_Get_Frame(void)
+//{
+//		uint8_t flag = 0;
+//		uint16_t status = 0;
+//	
+//				MLX90640_I2CRead(MLX90640_ADDR, 0x8000, 1, &status);
 
-				if(status & 0x0008)
-				{
-						int status2 = MLX90640_GetFrameData(MLX90640_ADDR, data.mlx90640_Zoom10);  //读取一帧原始数据
-						if (status2 < 0)		printf("GetFrame Error: %d\r\n",status2);
-						
-						Ta = MLX90640_GetTa(data.mlx90640_Zoom10, &mlx90640);  //计算实时外壳温度
-						Ta = Ta - TA_SHIFT;
-						MLX90640_CalculateTo(data.mlx90640_Zoom10, &mlx90640,0.95,Ta,data2.mlx90640To);		//计算像素点温度
-				}
-				flag=1;
-		
-		return flag;
-}
+//				if(status & 0x0008)
+//				{
+//						int status2 = MLX90640_GetFrameData(MLX90640_ADDR, data.mlx90640_Zoom10);  //读取一帧原始数据
+//						if (status2 < 0)		printf("GetFrame Error: %d\r\n",status2);
+//						
+//						Ta = MLX90640_GetTa(data.mlx90640_Zoom10, &mlx90640);  //计算实时外壳温度
+//						Ta = Ta - TA_SHIFT;
+//						MLX90640_CalculateTo(data.mlx90640_Zoom10, &mlx90640,0.95,Ta,data2.mlx90640To);		//计算像素点温度
+//				}
+//				flag=1;
+//		
+//		return flag;
+//}
 
 
 int main(void)
 {
-	unsigned short rgb = 0;
-	int k=0,j=0,m=0,status,i=0;
-	uint16_t mlx90640_status = 0;
-	float vdd;
-	uint8_t count;
+//	unsigned short rgb = 0;
+//	int k=0,j=0,m=0,status,i=0;
+//	float vdd;
+//	uint8_t count;
     sys_cache_enable();                 /* 打开L1-Cache */
     HAL_Init();                         /* 初始化HAL库 */
     sys_stm32_clock_init(240, 2, 2, 4); /* 设置时钟, 480Mhz */
@@ -124,34 +122,36 @@ int main(void)
 //    demo_run();                         /* 运行示例程序 */
 	atk_md0430_init();
 	
-	MLX90640_I2CInit();										//MLX90640I2C初始化
-		delay_ms(50);												//等待初始化
-	MLX90640_SetRefreshRate(MLX90640_ADDR, FPS4HZ);   //设置帧率	
-	MLX90640_SetChessMode(MLX90640_ADDR);				//MLX90640设置成棋盘模式
 	
-			status = MLX90640_DumpEE(MLX90640_ADDR, data.mlx90640_Zoom10);		//读取像素校正参数 
-		if (status != 0) printf("load system parameters error with code:%d\r\n",mlx90640_status);
-	
-		status = MLX90640_ExtractParameters(data.mlx90640_Zoom10, &mlx90640);		//解析校正参数
-		if (status != 0) printf("Parameter extraction failed with error code:%d\r\n",mlx90640_status);
+	MLX90640_Init();
+//	MLX90640_I2CInit();										//MLX90640I2C初始化
+//		delay_ms(50);												//等待初始化
+//	MLX90640_SetRefreshRate(MLX90640_ADDR, FPS4HZ);   //设置帧率	
+//	MLX90640_SetChessMode(MLX90640_ADDR);				//MLX90640设置成棋盘模式
+//	
+//			status = MLX90640_DumpEE(MLX90640_ADDR, data.mlx90640_Zoom10);		//读取像素校正参数 
+//		if (status != 0) printf("load system parameters error with code:%d\r\n",mlx90640_status);
+//	
+//		status = MLX90640_ExtractParameters(data.mlx90640_Zoom10, &mlx90640);		//解析校正参数
+//		if (status != 0) printf("Parameter extraction failed with error code:%d\r\n",mlx90640_status);
 
-		for(i=0;i<3;i++)
-		{
-				MLX90640_I2CRead(MLX90640_ADDR, 0x8000, 1, &mlx90640_status);
+//		for(i=0;i<3;i++)
+//		{
+//				MLX90640_I2CRead(MLX90640_ADDR, 0x8000, 1, &mlx90640_status);
 
-				if(mlx90640_status & 0x0008)
-				{
-						int status = MLX90640_GetFrameData(MLX90640_ADDR, data.mlx90640_Zoom10);  //读取一帧原始数据
-						if (status < 0)		printf("GetFrame Error: %d\r\n",status);
-						
-						vdd = MLX90640_GetVdd(data.mlx90640_Zoom10, &mlx90640);  //计算 Vdd（这句可有可无）
-						Ta = MLX90640_GetTa(data.mlx90640_Zoom10, &mlx90640);  //计算实时外壳温度
-						Ta = Ta - TA_SHIFT;
-						MLX90640_CalculateTo(data.mlx90640_Zoom10, &mlx90640,0.95,Ta,data2.mlx90640To);		//计算像素点温度
+//				if(mlx90640_status & 0x0008)
+//				{
+//						int status = MLX90640_GetFrameData(MLX90640_ADDR, data.mlx90640_Zoom10);  //读取一帧原始数据
+//						if (status < 0)		printf("GetFrame Error: %d\r\n",status);
+//						
+//						vdd = MLX90640_GetVdd(data.mlx90640_Zoom10, &mlx90640);  //计算 Vdd（这句可有可无）
+//						Ta = MLX90640_GetTa(data.mlx90640_Zoom10, &mlx90640);  //计算实时外壳温度
+//						Ta = Ta - TA_SHIFT;
+//						MLX90640_CalculateTo(data.mlx90640_Zoom10, &mlx90640,0.95,Ta,data2.mlx90640To);		//计算像素点温度
 
-						printf("vdd: %f Tr: %f\r\n",vdd,Ta);
-				}
-		}
+//						printf("vdd: %f Tr: %f\r\n",vdd,Ta);
+//				}
+//		}
 
 
 	
@@ -163,31 +163,6 @@ int main(void)
 		{
 			printf("ok\n");
 		}
-
-//		status=MLX90640_DumpEE(MLX90640_ADDR, data.mlx90640_Zoom10);					//			读取像素校正参数
-//				printf("status11:%d\n",status);
-//		status=MLX90640_ExtractParameters(data.mlx90640_Zoom10, &mlx90640);				//解析校正参数
-//			printf("status22:%d\n",status);
-		
-		
-//		status=MLX90640_GetFrameData(MLX90640_ADDR, data.mlx90640_Zoom10);
-//		printf("status33:%d\n",status);
-//		Ta = MLX90640_GetTa(data.mlx90640_Zoom10, &mlx90640);    //读取MLX90640 外壳温度	
-//		if(status==0)
-//		{
-//				MLX90640_CalculateTo(data.mlx90640_Zoom10, &mlx90640, 0.95 , Ta - TA_SHIFT, data2.mlx90640To);				//计算像素点温度
-//				MLX90640_BadPixelsCorrection(mlx90640.brokenPixels,data2.mlx90640To,1,&mlx90640);
-//				MLX90640_BadPixelsCorrection(mlx90640.outlierPixels,data2.mlx90640To,1,&mlx90640);
-//				Ta=Ta-TA_SHIFT;
-//		}
-//		for(k=0;k<768;k++)
-//		{
-//			printf("%d:%d\n",k,data.mlx90640_Zoom10[k]);
-//			printf("\n");
-//			printf("TO%d:%f\n",k,data2.mlx90640To[k]);
-//		}
-		printf("Ta:%f\n",Ta);
-	
 			atk_md0430_set_disp_dir(ATK_MD0430_LCD_DISP_DIR_90);   //显示旋转
 //		atk_md0430_fill(20,20,40,40,ATK_MD0430_BLACK);//区域填充
 //		atk_md0430_draw_point(20,20,ATK_MD0430_BLACK);//画点
@@ -202,39 +177,7 @@ int main(void)
 //	atk_md0430_show_xnum(350,100,Ta,2,ATK_MD0430_NUM_SHOW_ZERO,ATK_MD0430_LCD_FONT_32,ATK_MD0430_RED);
 //	atk_md0430_show_xnum(350,200,data2.mlx90640To[400],3,ATK_MD0430_NUM_SHOW_ZERO,ATK_MD0430_LCD_FONT_32,ATK_MD0430_RED);
 //		atk_md0430_show_xnum(350,300,data.mlx90640_Zoom10[400],3,ATK_MD0430_NUM_SHOW_ZERO,ATK_MD0430_LCD_FONT_32,ATK_MD0430_RED);
-		
-		for(k=0;k<768;k++)
-		{
-			count=(uint8_t)data2.mlx90640To[k]*8;
-		//	count=160;
-			printf("count:%d\n",count);
-			GrayToPseColor(count,&(color->colorR),&(color->colorG),&(color->colorB));
-			printf("RGB:%d  %d  %d\n",color->colorR,color->colorG,color->colorB);
-				
-			rgb=RGB565(color->colorR,color->colorG,color->colorB);
-			printf("rgb:%8x\n",rgb);
-				x_line=k%32;
-				y_list=k/32+1;
-			
-			pin_x=x_line*25;
-			m=pin_x-25;
-			pin_y=y_list*20;
-			j=pin_y-20;
-			//显示
-			for(j;j<pin_y;pin_y--)
-			{
-						for(m;m<pin_x;pin_x--)
-						atk_md0430_draw_point(pin_x,pin_y,rgb);//画点
-				pin_x=x_line*25;
-			m=pin_x-25;
-			}
-
-//			if(data2.mlx90640To[k]>25)
-//			  atk_md0430_draw_point(x_line+200,y_list+500,ATK_MD0430_BLACK);//画点
-//			else
-//				atk_md0430_draw_point(x_line+200,y_list+500,ATK_MD0430_RED);//画点
-		}
-		
+		 Disp_Temp_Pic();
 	}
 
 }

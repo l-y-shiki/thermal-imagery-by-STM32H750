@@ -100,3 +100,11 @@
 ..\..\output\mlx90640.o: ..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_pcd_ex.h
 ..\..\output\mlx90640.o: ..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_hcd.h
 ..\..\output\mlx90640.o: ..\..\Drivers\CMSIS\Include\core_cm7.h
+..\..\output\mlx90640.o: ..\..\Drivers\./BSP/ATK_MD0430/atk_md0430.h
+..\..\output\mlx90640.o: ..\..\Drivers\./BSP/ATK_MD0430/atk_md0430_touch.h
+..\..\output\mlx90640.o: ..\..\Drivers\./BSP/ATK_MD0430/atk_md0430.h
+..\..\output\mlx90640.o: ..\..\Drivers\./SYSTEM/delay/delay.h
+..\..\output\mlx90640.o: ..\..\MLX90640\headers\MYMLX90640_API.h
+..\..\output\mlx90640.o: ..\..\MLX90640\headers\MYMLX90640_I2C_Driver.h
+..\..\output\mlx90640.o: ..\..\MLX90640\headers\MYMLX90640.h
+..\..\output\mlx90640.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
