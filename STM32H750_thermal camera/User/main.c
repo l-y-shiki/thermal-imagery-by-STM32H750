@@ -25,6 +25,7 @@
 #include "./BSP/ATK_MD0430/atk_md0430.h"
 #include "MYMLX90640_API.h"
 #include "MYMLX90640_I2C_Driver.h"
+#include "MYMLX90640.h"
 
 #include "demo.h"
 
@@ -59,6 +60,7 @@ UnionData2 data2;
 float Ta;
 float emissivity=0.95;
 int x_line=0,y_list=0;
+int pin_x=0,pin_y=0;
 
 paramsMLX90640 mlx90640;
 
@@ -105,9 +107,11 @@ uint8_t Mlx90640_Get_Frame(void)
 
 int main(void)
 {
-	int k=0,status,i=0,count;
+	unsigned short rgb = 0;
+	int k=0,j=0,m=0,status,i=0;
 	uint16_t mlx90640_status = 0;
 	float vdd;
+	uint8_t count;
     sys_cache_enable();                 /* 打开L1-Cache */
     HAL_Init();                         /* 初始化HAL库 */
     sys_stm32_clock_init(240, 2, 2, 4); /* 设置时钟, 480Mhz */
@@ -117,7 +121,7 @@ int main(void)
 //    led_init();                         /* 初始化LED */
 //    key_init();                         /* 初始化按键 */
     show_mesg();                        /* 显示实验信息 */
-  //  demo_run();                         /* 运行示例程序 */
+//    demo_run();                         /* 运行示例程序 */
 	atk_md0430_init();
 	
 	MLX90640_I2CInit();										//MLX90640I2C初始化
@@ -176,15 +180,15 @@ int main(void)
 //				MLX90640_BadPixelsCorrection(mlx90640.outlierPixels,data2.mlx90640To,1,&mlx90640);
 //				Ta=Ta-TA_SHIFT;
 //		}
-		for(k=0;k<768;k++)
-		{
-//				printf("%d:%d\n",k,data.mlx90640_Zoom10[k]);
-			printf("\n");
-			printf("TO%d:%f\n",k,data2.mlx90640To[k]);
-		}
+//		for(k=0;k<768;k++)
+//		{
+//			printf("%d:%d\n",k,data.mlx90640_Zoom10[k]);
+//			printf("\n");
+//			printf("TO%d:%f\n",k,data2.mlx90640To[k]);
+//		}
 		printf("Ta:%f\n",Ta);
 	
-//		atk_md0430_set_disp_dir(ATK_MD0430_LCD_DISP_DIR_90);   //显示旋转
+			atk_md0430_set_disp_dir(ATK_MD0430_LCD_DISP_DIR_90);   //显示旋转
 //		atk_md0430_fill(20,20,40,40,ATK_MD0430_BLACK);//区域填充
 //		atk_md0430_draw_point(20,20,ATK_MD0430_BLACK);//画点
 //		color=atk_md0430_read_point(20,20);//读取坐标点颜色
@@ -201,12 +205,34 @@ int main(void)
 		
 		for(k=0;k<768;k++)
 		{
-				x_line=k%48;
-				y_list=k/48;
-			if(data2.mlx90640To[k]>25)
-			  atk_md0430_draw_point(x_line+200,y_list+500,ATK_MD0430_BLACK);//画点
-			else
-				atk_md0430_draw_point(x_line+200,y_list+500,ATK_MD0430_RED);//画点
+			count=(uint8_t)data2.mlx90640To[k]*8;
+		//	count=160;
+			printf("count:%d\n",count);
+			GrayToPseColor(count,&(color->colorR),&(color->colorG),&(color->colorB));
+			printf("RGB:%d  %d  %d\n",color->colorR,color->colorG,color->colorB);
+				
+			rgb=RGB565(color->colorR,color->colorG,color->colorB);
+			printf("rgb:%8x\n",rgb);
+				x_line=k%32;
+				y_list=k/32+1;
+			
+			pin_x=x_line*25;
+			m=pin_x-25;
+			pin_y=y_list*20;
+			j=pin_y-20;
+			//显示
+			for(j;j<pin_y;pin_y--)
+			{
+						for(m;m<pin_x;pin_x--)
+						atk_md0430_draw_point(pin_x,pin_y,rgb);//画点
+				pin_x=x_line*25;
+			m=pin_x-25;
+			}
+
+//			if(data2.mlx90640To[k]>25)
+//			  atk_md0430_draw_point(x_line+200,y_list+500,ATK_MD0430_BLACK);//画点
+//			else
+//				atk_md0430_draw_point(x_line+200,y_list+500,ATK_MD0430_RED);//画点
 		}
 		
 	}

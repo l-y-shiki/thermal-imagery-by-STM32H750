@@ -596,14 +596,19 @@
               <FilePath>..\..\MLX90640\headers\MYMLX90640_I2C_Driver.h</FilePath>
             </File>
             <File>
-              <FileName>MLX90640.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\MLX90640.h</FilePath>
-            </File>
-            <File>
               <FileName>MYMLX90640_API.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\MLX90640\headers\MYMLX90640_API.h</FilePath>
+            </File>
+            <File>
+              <FileName>MLX90640.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\MLX90640\functions\MLX90640.c</FilePath>
+            </File>
+            <File>
+              <FileName>MYMLX90640.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\MLX90640\headers\MYMLX90640.h</FilePath>
             </File>
           </Files>
         </Group>
