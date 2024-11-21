@@ -106,3 +106,4 @@
 ..\..\output\atk_md0430.o: ..\..\Drivers\./BSP/ATK_MD0430/atk_md0430_font.h
 ..\..\output\atk_md0430.o: ..\..\Drivers\./BSP/ATK_MD0430/atk_md0430_fmc.h
 ..\..\output\atk_md0430.o: ..\..\Drivers\./SYSTEM/delay/delay.h
+..\..\output\atk_md0430.o: ..\..\MLX90640\headers\MYMLX90640.h

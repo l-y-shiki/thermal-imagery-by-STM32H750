@@ -29,5 +29,7 @@ uint8_t Mlx90640_Get_Frame(void);
 void GrayToPseColor(uint8_t grayValue, uint8_t *colorR,uint8_t *colorG,uint8_t *colorB);  //»Ò¶È-Î±²ÊÉ«±ä»»
 unsigned short RGB565(unsigned char red, unsigned char green, unsigned char blue);
 void Disp_Temp_Pic(void);
+void FSMC_DMA_Init();
+void display();
 
 #endif

@@ -22,6 +22,7 @@
 #include "./BSP/ATK_MD0430/atk_md0430_font.h"
 #include "./BSP/ATK_MD0430/atk_md0430_fmc.h"
 #include "./SYSTEM/delay/delay.h"
+#include "MYMLX90640.h"
 
 /* ATK-MD0430Ä£¿éLCDÇý¶¯Æ÷ID */
 #define ATK_MD0430_CHIP_ID          0x5510

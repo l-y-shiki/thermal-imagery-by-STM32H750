@@ -120,41 +120,14 @@ int main(void)
 //    key_init();                         /* 初始化按键 */
     show_mesg();                        /* 显示实验信息 */
 //    demo_run();                         /* 运行示例程序 */
+	
+		MLX90640_Init();
+		FSMC_DMA_Init();
 	atk_md0430_init();
-	
-	
-	MLX90640_Init();
-//	MLX90640_I2CInit();										//MLX90640I2C初始化
-//		delay_ms(50);												//等待初始化
-//	MLX90640_SetRefreshRate(MLX90640_ADDR, FPS4HZ);   //设置帧率	
-//	MLX90640_SetChessMode(MLX90640_ADDR);				//MLX90640设置成棋盘模式
-//	
-//			status = MLX90640_DumpEE(MLX90640_ADDR, data.mlx90640_Zoom10);		//读取像素校正参数 
-//		if (status != 0) printf("load system parameters error with code:%d\r\n",mlx90640_status);
-//	
-//		status = MLX90640_ExtractParameters(data.mlx90640_Zoom10, &mlx90640);		//解析校正参数
-//		if (status != 0) printf("Parameter extraction failed with error code:%d\r\n",mlx90640_status);
-
-//		for(i=0;i<3;i++)
-//		{
-//				MLX90640_I2CRead(MLX90640_ADDR, 0x8000, 1, &mlx90640_status);
-
-//				if(mlx90640_status & 0x0008)
-//				{
-//						int status = MLX90640_GetFrameData(MLX90640_ADDR, data.mlx90640_Zoom10);  //读取一帧原始数据
-//						if (status < 0)		printf("GetFrame Error: %d\r\n",status);
-//						
-//						vdd = MLX90640_GetVdd(data.mlx90640_Zoom10, &mlx90640);  //计算 Vdd（这句可有可无）
-//						Ta = MLX90640_GetTa(data.mlx90640_Zoom10, &mlx90640);  //计算实时外壳温度
-//						Ta = Ta - TA_SHIFT;
-//						MLX90640_CalculateTo(data.mlx90640_Zoom10, &mlx90640,0.95,Ta,data2.mlx90640To);		//计算像素点温度
-
-//						printf("vdd: %f Tr: %f\r\n",vdd,Ta);
-//				}
-//		}
-
 
 	
+
+	atk_md0430_set_disp_dir(ATK_MD0430_LCD_DISP_DIR_90);   //显示旋转
 	atk_md0430_clear(ATK_MD0430_WHITE);  //填充区域，颜色
 	while(1)
 	{	
@@ -163,7 +136,7 @@ int main(void)
 		{
 			printf("ok\n");
 		}
-			atk_md0430_set_disp_dir(ATK_MD0430_LCD_DISP_DIR_90);   //显示旋转
+
 //		atk_md0430_fill(20,20,40,40,ATK_MD0430_BLACK);//区域填充
 //		atk_md0430_draw_point(20,20,ATK_MD0430_BLACK);//画点
 //		color=atk_md0430_read_point(20,20);//读取坐标点颜色
@@ -177,7 +150,13 @@ int main(void)
 //	atk_md0430_show_xnum(350,100,Ta,2,ATK_MD0430_NUM_SHOW_ZERO,ATK_MD0430_LCD_FONT_32,ATK_MD0430_RED);
 //	atk_md0430_show_xnum(350,200,data2.mlx90640To[400],3,ATK_MD0430_NUM_SHOW_ZERO,ATK_MD0430_LCD_FONT_32,ATK_MD0430_RED);
 //		atk_md0430_show_xnum(350,300,data.mlx90640_Zoom10[400],3,ATK_MD0430_NUM_SHOW_ZERO,ATK_MD0430_LCD_FONT_32,ATK_MD0430_RED);
-		 Disp_Temp_Pic();
+		 Disp_Temp_Pic(); 
+//		display();
+//		atk_md0430_clear(ATK_MD0430_WHITE);  //填充区域，颜色
+//		atk_md0430_clear(ATK_MD0430_RED);  //填充区域，颜色
+//		atk_md0430_clear(ATK_MD0430_BLACK);  //填充区域，颜色
+//		atk_md0430_clear(ATK_MD0430_GREEN);  //填充区域，颜色
+
 	}
 
 }

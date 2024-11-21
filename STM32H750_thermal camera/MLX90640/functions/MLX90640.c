@@ -1,6 +1,5 @@
 
 #include "./SYSTEM/sys/sys.h"
-
 #include "./BSP/ATK_MD0430/atk_md0430.h"
 #include "./SYSTEM/delay/delay.h"
 #include "MYMLX90640_API.h"
@@ -9,8 +8,12 @@
 #include <stdio.h>
 #include <math.h>
 
+DMA_HandleTypeDef hdma_memtomem_dma2_stream6;
+uint16_t src_buf[10] = {0x0a, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
+//__attribute__((at(0x30000000)))
+uint16_t dest_buf[10] = {0};
 
-
+uint16_t cmt=15;
 unsigned short EE[832];
 typedef union{
 	uint16_t mlx90640_Zoom10[834];  
@@ -55,7 +58,7 @@ void	MLX90640_Init(void)
 	{
 	MLX90640_I2CInit();										//MLX90640I2C初始化
 		delay_ms(50);												//等待初始化
-	MLX90640_SetRefreshRate(MLX90640_ADDR, FPS4HZ);   //设置帧率	
+	MLX90640_SetRefreshRate(MLX90640_ADDR, FPS16HZ);   //设置帧率	
 	MLX90640_SetChessMode(MLX90640_ADDR);				//MLX90640设置成棋盘模式
 	
 			status = MLX90640_DumpEE(MLX90640_ADDR, data.mlx90640_Zoom10);		//读取像素校正参数 
@@ -149,24 +152,24 @@ void Disp_Temp_Pic(void)
 {
 		for(k=0;k<768;k++)
 		{
-			printf("dddddd:%f\n",data2.mlx90640To[k]);
+			//printf("dddddd:%f\n",data2.mlx90640To[k]);
 			count=(uint8_t)data2.mlx90640To[k]*8;
 			if(count>250)
 				count=255;
 		//	count=160;
-			printf("count:%d\n",count);
+	//		printf("count:%d\n",count);
 			GrayToPseColor(count,&(color->colorR),&(color->colorG),&(color->colorB));
-			printf("RGB:%d  %d  %d\n",color->colorR,color->colorG,color->colorB);
+	//		printf("RGB:%d  %d  %d\n",color->colorR,color->colorG,color->colorB);
 				
 			rgb=RGB565(color->colorR,color->colorG,color->colorB);
-			printf("rgb:%8x\n",rgb);
+		//	printf("rgb:%8x\n",rgb);
 				x_line=k%32;
 				y_list=k/32+1;
 			
-			pin_x=x_line*25;
-			m=pin_x-25;
-			pin_y=y_list*20;
-			j=pin_y-20;
+			pin_x=x_line*6;
+			m=pin_x-6;
+			pin_y=y_list*5;
+			j=pin_y-5;
 			//显示
 			
 			atk_md0430_fill(m,j,pin_x,pin_y,rgb);
@@ -185,5 +188,62 @@ void Disp_Temp_Pic(void)
 //				atk_md0430_draw_point(x_line+200,y_list+500,ATK_MD0430_RED);//画点
 		}
 	}
+
+	
+
+	
+
+	
+	
+void FSMC_DMA_Init()
+{
+	int status;
+    __HAL_RCC_DMA2_CLK_ENABLE();
+ 
+    hdma_memtomem_dma2_stream6.Instance = DMA2_Stream0;
+		hdma_memtomem_dma2_stream6.Init.Request = DMA_REQUEST_MEM2MEM;
+    hdma_memtomem_dma2_stream6.Init.Direction = DMA_MEMORY_TO_MEMORY;            //传输方向，存储器-》存储器
+    hdma_memtomem_dma2_stream6.Init.PeriphInc = DMA_PINC_ENABLE;//源地址自增
+    hdma_memtomem_dma2_stream6.Init.MemInc = DMA_MINC_DISABLE;  //目的地址不自增，因为LCD的地址是固定的
+	//hdma_memtomem_dma2_stream6.Init.MemInc = DMA_MINC_ENABLE;  //目的地址自增，因为LCD的地址是固定的
+	
+    hdma_memtomem_dma2_stream6.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+    hdma_memtomem_dma2_stream6.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+    hdma_memtomem_dma2_stream6.Init.Mode = DMA_NORMAL;//传输模式，此即传输一次停止
+    hdma_memtomem_dma2_stream6.Init.Priority = DMA_PRIORITY_MEDIUM;
+//    hdma_memtomem_dma2_stream6.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
+	    hdma_memtomem_dma2_stream6.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+    hdma_memtomem_dma2_stream6.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+    hdma_memtomem_dma2_stream6.Init.MemBurst = DMA_MBURST_INC8;   //源地址,16太快了，否则屏幕无反应
+    hdma_memtomem_dma2_stream6.Init.PeriphBurst = DMA_MBURST_INC8;//目的地址,16太快了，否则白屏
+    if (HAL_DMA_Init(&hdma_memtomem_dma2_stream6) != HAL_OK)
+    {
+    //    Error_Handler();
+			printf("errorrrrrr\n");
+    }
+		HAL_DMA_Start(&hdma_memtomem_dma2_stream6,(uint32_t)&src_buf[9],(uint32_t)&dest_buf[5],1); 
+		HAL_DMA_PollForTransfer(&hdma_memtomem_dma2_stream6,HAL_DMA_FULL_TRANSFER,20);
+		HAL_DMA_Start(&hdma_memtomem_dma2_stream6,(uint32_t)&src_buf[8],(uint32_t)&dest_buf[4],1); 
+		HAL_DMA_PollForTransfer(&hdma_memtomem_dma2_stream6,HAL_DMA_FULL_TRANSFER,20);
+		HAL_DMA_Start(&hdma_memtomem_dma2_stream6,(uint32_t)&src_buf[7],(uint32_t)&dest_buf[3],1); 
+				HAL_DMA_PollForTransfer(&hdma_memtomem_dma2_stream6,HAL_DMA_FULL_TRANSFER,20);
+		HAL_DMA_Start(&hdma_memtomem_dma2_stream6,(uint32_t)src_buf,(uint32_t)dest_buf,10); 
+		for(status=0;status<10;status++)
+		printf("eeeeeeeeeeeeee:%d\n",dest_buf[status]);
+		
+		
+//    /*不受FreeRTOS调度*/
+//    HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, 3, 0);
+//    HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
+//    HAL_DMA_RegisterCallback(&hdma_memtomem_dma2_stream6, HAL_DMA_XFER_CPLT_CB_ID, LVGL_LCD_FSMC_DMA_pCallback);
+}
+
+void display()
+{
+	int status;
+		for(status=0;status<10;status++)
+		printf("eeeeeeeeeeeeee:%d\n",dest_buf[status]);
+}
+
 
 

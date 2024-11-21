@@ -17,11 +17,15 @@
  *
  ****************************************************************************************************
  */
+ 
+
 
 #ifndef __ATK_MD0430_FMC_H
 #define __ATK_MD0430_FMC_H
 
 #include "./SYSTEM/sys/sys.h"
+
+extern DMA_HandleTypeDef hdma_memtomem_dma2_stream6;
 
 /* ATK-MD0430模块FMC接口定义 */
 #define ATK_MD0430_FMC_BANK                    FMC_NORSRAM_BANK4                          /* ATK-MD0430模块所接FMC的Bank */
@@ -125,18 +129,30 @@
 
 /* 操作函数 */
 void atk_md0430_fmc_init(void);                                                            /* ATK-MD0430模块FMC接口初始化 */
+
 static inline void atk_md0430_fmc_write_cmd(volatile uint16_t cmd)                         /* ATK-MD0430模块通过FMC接口写命令 */
 {
-    ATK_MD0430_FMC_CMD_REG = cmd;
+      ATK_MD0430_FMC_CMD_REG = cmd;
+//		HAL_DMA_Start(&hdma_memtomem_dma2_stream6,(uint32_t)&cmd,(uint32_t)ATK_MD0430_FMC_CMD_ADDR,1);
+//  	HAL_DMA_PollForTransfer(&hdma_memtomem_dma2_stream6,HAL_DMA_FULL_TRANSFER,1);
 }
 static inline void atk_md0430_fmc_write_dat(volatile uint16_t dat)                         /* ATK-MD0430模块通过FMC接口写数据 */
 {
-    ATK_MD0430_FMC_DAT_REG = dat;
+      ATK_MD0430_FMC_DAT_REG = dat;
+	
+//		HAL_DMA_Start(&hdma_memtomem_dma2_stream6,(uint32_t)&dat,(uint32_t)ATK_MD0430_FMC_DAT_ADDR,1);
+//  	HAL_DMA_PollForTransfer(&hdma_memtomem_dma2_stream6,HAL_DMA_FULL_TRANSFER,1);
 }
 static inline void atk_md0430_fmc_write_reg(volatile uint16_t reg, volatile uint16_t dat)  /* ATK-MD0430模块通过FMC接口写寄存器 */
 {
     ATK_MD0430_FMC_CMD_REG = reg;
     ATK_MD0430_FMC_DAT_REG = dat;
+	
+//		HAL_DMA_Start(&hdma_memtomem_dma2_stream6,(uint32_t)&reg,(uint32_t)ATK_MD0430_FMC_CMD_ADDR,1);
+//  	HAL_DMA_PollForTransfer(&hdma_memtomem_dma2_stream6,HAL_DMA_FULL_TRANSFER,1);
+//		HAL_DMA_Start(&hdma_memtomem_dma2_stream6,(uint32_t)&dat,(uint32_t)ATK_MD0430_FMC_DAT_ADDR,1);
+//   	HAL_DMA_PollForTransfer(&hdma_memtomem_dma2_stream6,HAL_DMA_FULL_TRANSFER,1);
+	
 }
 static inline uint16_t atk_md0430_fmc_read_dat(void)                                       /* ATK-MD0430模块通过FMC接口读数据 */
 {
