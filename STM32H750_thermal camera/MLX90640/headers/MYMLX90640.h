@@ -23,13 +23,15 @@
 //RGBcolor color1;
 //RGBcolor *color=&color1;
 
-
+void  mlx90640_buf_copy(void);
 void	MLX90640_Init(void);
 uint8_t Mlx90640_Get_Frame(void);
 void GrayToPseColor(uint8_t grayValue, uint8_t *colorR,uint8_t *colorG,uint8_t *colorB);  //灰度-伪彩色变换
 unsigned short RGB565(unsigned char red, unsigned char green, unsigned char blue);
 void Disp_Temp_Pic(void);
-void FSMC_DMA_Init();
-void display();
+void Bilinear_Interpolation(uint16_t flag);       //插值算法
+
+void FSMC_DMA_Init(void);
+void display(void);
 
 #endif

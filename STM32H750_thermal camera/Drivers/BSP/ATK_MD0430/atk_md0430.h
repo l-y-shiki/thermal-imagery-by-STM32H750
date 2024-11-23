@@ -143,6 +143,9 @@ uint8_t atk_md0430_set_disp_dir(atk_md0430_lcd_disp_dir_t disp_dir);            
 atk_md0430_lcd_scan_dir_t atk_md0430_get_scan_dir(void);                                                                                                /* 获取ATK-MD0430模块LCD扫描方向 */
 atk_md0430_lcd_disp_dir_t atk_md0430_get_disp_dir(void);                                                                                                /* 获取ATK-MD0430模块LCD显示方向 */
 void atk_md0430_fill(uint16_t xs, uint16_t ys, uint16_t xe, uint16_t ye, uint16_t color);                                                               /* ATK-MD0430模块LCD区域填充 */
+
+void atk_md0430_fill2(uint16_t xs, uint16_t ys, uint16_t xe, uint16_t ye, uint16_t *color);      //add
+
 void atk_md0430_clear(uint16_t color);                                                                                                                  /* ATK-MD0430模块LCD清屏 */
 void atk_md0430_draw_point(uint16_t x, uint16_t y, uint16_t color);                                                                                     /* ATK-MD0430模块LCD画点 */
 uint16_t atk_md0430_read_point(uint16_t x, uint16_t y);                                                                                                 /* ATK-MD0430模块LCD读点 */

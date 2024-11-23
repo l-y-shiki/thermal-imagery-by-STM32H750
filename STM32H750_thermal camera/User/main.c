@@ -29,6 +29,9 @@
 
 #include "demo.h"
 
+extern DMA_HandleTypeDef hdma_memtomem_dma2_stream6;
+extern unsigned short rgb[768];
+
 
 //#define  FPS2HZ   0x02
 //#define  FPS4HZ   0x03
@@ -150,12 +153,24 @@ int main(void)
 //	atk_md0430_show_xnum(350,100,Ta,2,ATK_MD0430_NUM_SHOW_ZERO,ATK_MD0430_LCD_FONT_32,ATK_MD0430_RED);
 //	atk_md0430_show_xnum(350,200,data2.mlx90640To[400],3,ATK_MD0430_NUM_SHOW_ZERO,ATK_MD0430_LCD_FONT_32,ATK_MD0430_RED);
 //		atk_md0430_show_xnum(350,300,data.mlx90640_Zoom10[400],3,ATK_MD0430_NUM_SHOW_ZERO,ATK_MD0430_LCD_FONT_32,ATK_MD0430_RED);
-		 Disp_Temp_Pic(); 
-//		display();
+		Disp_Temp_Pic2(); 
+		
+//		HAL_DMA_Start(&hdma_memtomem_dma2_stream6,(uint32_t)&dat,(uint32_t)ATK_MD0430_FMC_DAT_ADDR,1);
+//  	HAL_DMA_PollForTransfer(&hdma_memtomem_dma2_stream6,HAL_DMA_FULL_TRANSFER,1);
+		
+		
+		display();
 //		atk_md0430_clear(ATK_MD0430_WHITE);  //填充区域，颜色
 //		atk_md0430_clear(ATK_MD0430_RED);  //填充区域，颜色
 //		atk_md0430_clear(ATK_MD0430_BLACK);  //填充区域，颜色
 //		atk_md0430_clear(ATK_MD0430_GREEN);  //填充区域，颜色
+		
+//		
+//		atk_md0430_fill(1,1,280,320,ATK_MD0430_WHITE);
+//		atk_md0430_fill(1,1,280,320,ATK_MD0430_RED);
+//		atk_md0430_fill(1,1,280,320,ATK_MD0430_BLACK);
+//			atk_md0430_fill2(1,1,800,480,ATK_MD0430_RED);
+		//	atk_md0430_fill2(1,1,800,480,ATK_MD0430_BLACK);
 
 	}
 

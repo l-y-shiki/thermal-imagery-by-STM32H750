@@ -35,6 +35,8 @@
 "..\..\output\mlx90640_api.o"
 "..\..\output\mlx90640_swi2c_driver.o"
 "..\..\output\mlx90640.o"
+"..\..\output\tftlcd.o"
+"..\..\output\lcd_spi_init.o"
 --diag_suppress 6314,6329 --strict --scatter "..\..\Output\atk_h750.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

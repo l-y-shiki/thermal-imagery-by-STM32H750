@@ -24,6 +24,8 @@
 #include "./SYSTEM/delay/delay.h"
 #include "MYMLX90640.h"
 
+extern unsigned short rgb[768];
+
 /* ATK-MD0430模块LCD驱动器ID */
 #define ATK_MD0430_CHIP_ID          0x5510
 
@@ -946,6 +948,33 @@ void atk_md0430_fill(uint16_t xs, uint16_t ys, uint16_t xe, uint16_t ye, uint16_
         }
     }
 }
+
+void atk_md0430_fill2(uint16_t xs, uint16_t ys, uint16_t xe, uint16_t ye, uint16_t *color)
+{
+	uint16_t count=0;
+
+    uint16_t x_index1;
+    uint16_t y_index1;
+    atk_md0430_set_column_address(xs, xe);
+    atk_md0430_set_page_address(ys, ye);
+    atk_md0430_start_write_memory();
+	
+	    for (y_index1=ys; y_index1<=ye; y_index1++)
+    {
+        for (x_index1=xs; x_index1<= xe; x_index1++)
+        {
+            atk_md0430_fmc_write_dat(color[count]);
+							count++;
+        }
+    } 
+
+//	
+//			HAL_DMA_Start(&hdma_memtomem_dma2_stream6,(uint32_t)rgb,(uint32_t)ATK_MD0430_FMC_DAT_ADDR,3840000);
+//    	HAL_DMA_PollForTransfer(&hdma_memtomem_dma2_stream6,HAL_DMA_FULL_TRANSFER,100000);
+
+}
+
+
 
 /**
  * @brief       ATK-MD0430模块LCD清屏

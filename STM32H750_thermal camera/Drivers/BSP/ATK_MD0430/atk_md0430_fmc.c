@@ -62,140 +62,140 @@ void atk_md0430_fmc_init(void)
     /* 初始化RS引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_RS_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_RS_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_RS_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化CS引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_CS_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_CS_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_CS_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化RD引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_RD_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_RD_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_RD_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化WR引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_WR_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_WR_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_WR_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D0引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D0_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D0_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D0_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D1引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D1_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D1_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D1_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D2引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D2_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D2_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D2_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D3引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D3_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D3_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D3_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D4引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D4_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D4_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D4_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D5引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D5_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D5_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D5_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D6引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D6_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D6_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D6_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D7引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D7_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D7_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D7_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D8引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D8_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D8_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D8_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D9引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D9_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D9_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D9_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D10引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D10_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D10_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D10_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D11引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D11_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D11_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D11_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D12引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D12_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D12_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D12_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D13引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D13_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D13_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D13_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D14引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D14_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D14_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D14_GPIO_PORT, &gpio_init_struct);
     
     /* 初始化D15引脚 */
     gpio_init_struct.Pin        = ATK_MD0430_FMC_D15_GPIO_PIN;
     gpio_init_struct.Mode       = GPIO_MODE_AF_PP;
-    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_HIGH;
+    gpio_init_struct.Speed      = GPIO_SPEED_FREQ_VERY_HIGH;
     gpio_init_struct.Alternate  = ATK_MD0430_FMC_D15_GPIO_AF;
     HAL_GPIO_Init(ATK_MD0430_FMC_D15_GPIO_PORT, &gpio_init_struct);
     

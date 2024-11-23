@@ -612,6 +612,31 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>spi_tftlcd</GroupName>
+          <Files>
+            <File>
+              <FileName>tftlcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\tftlcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>tftlcd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\tftlcd.h</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_spi_init.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\lcd_spi_init.h</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_spi_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lcd_spi_init.c</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
   </Targets>
