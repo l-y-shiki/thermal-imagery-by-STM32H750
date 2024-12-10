@@ -40,8 +40,5 @@ void Bilinear_Interpolation(uint16_t flag);       //²åÖµËã·¨
 void SPI_DMA_Init(void);
 void DMA2_Stream3_IRQHandler(void);
 void DMA_Start(uint8_t *ww);
-//void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi);
-
-void display(void);
 
 #endif

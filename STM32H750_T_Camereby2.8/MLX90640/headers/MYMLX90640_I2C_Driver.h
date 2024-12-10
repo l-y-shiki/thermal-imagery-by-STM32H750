@@ -34,12 +34,19 @@
 
 #define IIC_SCL_LOW()             HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9,GPIO_PIN_RESET);
 #define IIC_SCL_HIGH()            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9,GPIO_PIN_SET);
+//	 
+//#define IIC_SCL_LOW()             HAL_GPIO_WritePin(GPIOH, GPIO_PIN_4,GPIO_PIN_RESET);
+//#define IIC_SCL_HIGH()            HAL_GPIO_WritePin(GPIOH, GPIO_PIN_4,GPIO_PIN_SET);
 
 /*********************************** IIC_SDA ******************************/
 
 #define IIC_SDA_LOW()              HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8,GPIO_PIN_RESET);
 #define IIC_SDA_HIGH()             HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8,GPIO_PIN_SET);
 #define IIC_SDA_READ()             HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8);
+
+//#define IIC_SDA_LOW()              HAL_GPIO_WritePin(GPIOH, GPIO_PIN_5,GPIO_PIN_RESET);
+//#define IIC_SDA_HIGH()             HAL_GPIO_WritePin(GPIOH, GPIO_PIN_5,GPIO_PIN_SET);
+//#define IIC_SDA_READ()             HAL_GPIO_ReadPin(GPIOH, GPIO_PIN_5);
 
 
 

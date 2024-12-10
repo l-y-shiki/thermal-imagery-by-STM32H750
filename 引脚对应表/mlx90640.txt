@@ -1,0 +1,5 @@
+IIC_SCL		PB9
+
+IIC SDA		PB8
+
+PS			GND

@@ -453,5 +453,21 @@ void LCD_Fill_BUF(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t *colo
 //		}
 //	}
 }
-
+void LCD_Fill_BUF_2(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint8_t *color)
+{  	
+	uint16_t count=0,num=0;
+	uint16_t i,j;			
+	uint16_t width=ex-sx+1; 		//得到填充的宽度
+	uint16_t height=ey-sy+1;		//高度
+	LCD_SetWindows(sx,sy,ex,ey);//设置显示窗口
+//	DMA_Start(color_double);
+	
+					LCD_CS_CLR;
+				LCD_RS_SET;
+	//DMA传输
+				HAL_SPI_Transmit_DMA(&g_spi2_handle,color,38400);
+				delay_ms(6);
+				HAL_SPI_Abort(&g_spi2_handle);
+				LCD_CS_SET;
+}
 	

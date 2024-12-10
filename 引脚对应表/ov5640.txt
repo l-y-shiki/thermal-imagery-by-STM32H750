@@ -1,0 +1,31 @@
+VSYNC		PB7
+
+HSYNC		PA4
+
+PIXCLK		PA6
+
+RST			PA7
+
+PWDN		PC4
+
+FLASH		PA8
+
+SCCB_SCL		PB10
+
+SCCB SDA		PB11
+
+D0			PC6
+
+D1			PC7
+
+D2			PC8
+
+D3			PC9
+
+D4			PC11
+
+D5			PD3
+
+D6			PE5
+
+D7			PE6

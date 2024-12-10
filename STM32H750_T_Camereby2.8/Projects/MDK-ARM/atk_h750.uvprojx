@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32H750xx</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Drivers;..\..\Drivers\CMSIS\Include;..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include;..\..\Drivers\STM32H7xx_HAL_Driver\Inc;..\..\Middlewares;..\..\User;..\..\spi_lcd;..\..\MLX90640\functions;..\..\MLX90640\headers</IncludePath>
+              <IncludePath>..\..\Drivers;..\..\Drivers\CMSIS\Include;..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include;..\..\Drivers\STM32H7xx_HAL_Driver\Inc;..\..\Middlewares;..\..\User;..\..\spi_lcd;..\..\MLX90640\functions;..\..\MLX90640\headers;..\..\RGB565;..\..\OVA5640</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -414,6 +414,16 @@
               <FileName>spi_test.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\User\spi_test.h</FilePath>
+            </File>
+            <File>
+              <FileName>ova5640_demo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\ova5640_demo.c</FilePath>
+            </File>
+            <File>
+              <FileName>ova5640_demo.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\User\ova5640_demo.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -514,6 +524,11 @@
               <FileName>stm32h7xx_hal_dma_ex.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_dcmi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dcmi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -639,6 +654,61 @@
               <FileName>MYMLX90640_I2C_Driver.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\MLX90640\headers\MYMLX90640_I2C_Driver.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>RGB565</GroupName>
+          <Files>
+            <File>
+              <FileName>rgb565.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\RGB565\rgb565.c</FilePath>
+            </File>
+            <File>
+              <FileName>rgb565.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\RGB565\rgb565.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>OVA5640</GroupName>
+          <Files>
+            <File>
+              <FileName>ova5640.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\OVA5640\ova5640.c</FilePath>
+            </File>
+            <File>
+              <FileName>ova5640.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\OVA5640\ova5640.h</FilePath>
+            </File>
+            <File>
+              <FileName>sccb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\OVA5640\sccb.c</FilePath>
+            </File>
+            <File>
+              <FileName>sccb.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\OVA5640\sccb.h</FilePath>
+            </File>
+            <File>
+              <FileName>ova5640_dcmi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\OVA5640\ova5640_dcmi.c</FilePath>
+            </File>
+            <File>
+              <FileName>ova5640_dcmi.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\OVA5640\ova5640_dcmi.h</FilePath>
+            </File>
+            <File>
+              <FileName>atk_mc5640_cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\OVA5640\atk_mc5640_cfg.h</FilePath>
             </File>
           </Files>
         </Group>

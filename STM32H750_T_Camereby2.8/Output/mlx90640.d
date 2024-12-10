@@ -108,3 +108,4 @@
 ..\..\output\mlx90640.o: ..\..\spi_lcd\lcd.h
 ..\..\output\mlx90640.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\..\output\mlx90640.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\..\output\mlx90640.o: ..\..\RGB565\rgb565.h

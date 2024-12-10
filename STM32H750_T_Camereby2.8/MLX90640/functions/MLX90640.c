@@ -8,14 +8,12 @@
 #include "lcd.h"
 #include <stdio.h>
 #include <math.h>
+#include "rgb565.h"
 
 DMA_HandleTypeDef hdma_memtomem_dma2_stream6={0};
 extern SPI_HandleTypeDef g_spi2_handle;
 
 extern uint8_t dmaTransferComplete;
-
-extern 	uint8_t ww[320];
-
 
 uint16_t scount2;
 
@@ -125,7 +123,7 @@ uint8_t Mlx90640_Get_Frame(void)
 {
 		uint8_t flag = 0;
 		uint16_t status = 0;
-	
+
 				MLX90640_I2CRead(MLX90640_ADDR, 0x8000, 1, &status);
 
 				if(status & 0x0008)
@@ -150,6 +148,8 @@ uint8_t Mlx90640_Get_Frame(void)
 					//测试数据是否全部采集
 										for(status2=0;status2<768;status2++)
 					{
+						
+						//坏点处理
 						if(isnan(data2.mlx90640To[status2]))
 							data2.mlx90640To[status2]=(data2.mlx90640To[status2-1]+data2.mlx90640To[status2+1]+data2.mlx90640To[status2-32]+data2.mlx90640To[status2+32])/4;
 						
@@ -163,45 +163,6 @@ uint8_t Mlx90640_Get_Frame(void)
 		
 		return flag;
 }
-
-
-void GrayToPseColor(uint8_t grayValue, uint8_t *colorR,uint8_t *colorG,uint8_t *colorB)  //灰度-伪彩色变换
-{
-		if( (grayValue>=0) && (grayValue<=63) )  
-		{
-			*colorR=0;
-			*colorG=0;
-			*colorB=round(grayValue*255/64);
-		}
-		else if( (grayValue>=64) && (grayValue<=127) )  
-		{
-			*colorR=0;
-			*colorG=round((grayValue-64)*255/64);
-			*colorB=round((127-grayValue)*255/64);
-		}
-		else if( (grayValue>=128) && (grayValue<=191) )  
-		{
-			*colorR=round((grayValue-128)*255/64);
-			*colorG=255;
-			*colorB=0;
-		}
-		else if( (grayValue>=192) && (grayValue<=255) )  
-		{
-			*colorR=255;
-			*colorG=round((255-grayValue)*255/64);
-			*colorB=0;
-		}		
-}
-
-unsigned short RGB565(unsigned char red, unsigned char green, unsigned char blue)
-{
-    unsigned short color = 0;
-    color |= (red >> 3) << 11;      //将red的高5位放到color的高5位
-    color |= (green >> 2) << 5;     //将green的高6位放到color的中间6位
-    color |= blue >> 3;             //将blue的高5位放到color的低5位
-    return color;
-}
-
 
 //原数据显示
 void Disp_Temp_Pic(void)
@@ -218,7 +179,7 @@ void Disp_Temp_Pic(void)
 				count=255;
 			GrayToPseColor(count,&(color->colorR),&(color->colorG),&(color->colorB));	
 
-rgb[k]=RGB565(color->colorR,color->colorG,color->colorB);
+			rgb[k]=RGB565(color->colorR,color->colorG,color->colorB);
 
 				x_line[k]=k%32;
 				y_list[k]=k/32+1;
@@ -229,14 +190,12 @@ rgb[k]=RGB565(color->colorR,color->colorG,color->colorB);
 			j[k]=pin_y[k]-10;
 		
 		}
-			//显示
 		
 			for(k=0;k<768;k++)
 		LCD_Fill(m[k],j[k],pin_x[k],pin_y[k],rgb[k]);
 	}
-
 	
-	//滤波数据显示
+//滤波数据显示
 void Disp_Temp_Pia(void)
 {
 		uint16_t count = 0;
@@ -254,7 +213,7 @@ void Disp_Temp_Pia(void)
 						//将数据转换为显示颜色
 						for(int k=0;k<25;k++)
 {
-			count=(uint8_t)mlx90640_temp_buf[k]*7;
+			count=(uint8_t)mlx90640_temp_buf[k]*6.7;
 					if(count>250)
 						count=255;
 						GrayToPseColor(count,&(color->colorR),&(color->colorG),&(color->colorB));		
@@ -311,6 +270,9 @@ void Bilinear_Interpolation(uint16_t flag)
 		uint16_t cbufx[2],cbufy[2];
 		int x,y;
 	
+	if(flag<=763)
+	{//边界内处理
+	
     for (y = 0; y < 5; y++)
     {
         cbufy[0] = 512-y*scale_y;
@@ -327,6 +289,27 @@ void Bilinear_Interpolation(uint16_t flag)
 																				mlx90640_disp_buf[flag+33] * cbufx[1] * cbufy[1] )>>18;					 //Q12
         }
 		}
+	}
+	if(flag>736)
+	{//边界处理
+		
+				    for (y = 0; y < 5; y++)
+    {
+        cbufy[0] = 512-y*scale_y;
+        cbufy[1] = 512-cbufy[0];
+		
+        for (x = 0; x < 5; x++)
+        {
+						cbufx[0] = 512-x*scale_x;
+						cbufx[1] = 512-cbufx[0];
+
+						mlx90640_temp_buf[y*5+x] = (mlx90640_disp_buf[flag   ] * cbufx[0] * cbufy[0] +               //Q21
+																				mlx90640_disp_buf[flag-32] * cbufx[0] * cbufy[1] +               //Q11
+																				mlx90640_disp_buf[flag+1 ] * cbufx[1] * cbufy[0] +               //Q22
+																				mlx90640_disp_buf[flag-33] * cbufx[1] * cbufy[1] )>>18;					 //Q12
+        }
+		}
+	}
 }
 
 	
@@ -400,8 +383,6 @@ void DMA_Start(uint8_t *ww)
 //	printf("the spistatsu was busy...........\n");
 //    // SPI正在忙碌，不能使用
 //}
-
-//				printf("%d\n",dmaTransferComplete);
 				LCD_CS_CLR;
 				LCD_RS_SET;
 
@@ -414,7 +395,6 @@ void DMA_Start(uint8_t *ww)
 	//DMA传输
 				HAL_SPI_Transmit_DMA(&g_spi2_handle,ww,6400);
 				delay_us(900);
-//				printf("1111:%d\n",dmaTransferComplete);
 				HAL_SPI_Abort(&g_spi2_handle);
 				
 				
@@ -427,21 +407,8 @@ void DMA_Start(uint8_t *ww)
 //}			
 					LCD_CS_SET;
 
-
-				//printf("okkkkkk\n");
-
-				
-		
 }
 
-
-void display(void)
-{
-	int status;
-		for(status=0;status<10;status++)
-//		printf("eeeeeeeeeeeeee:%d\n",dest_buf[status]);
-	printf("1111\n");
-}
 
 
 

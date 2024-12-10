@@ -115,5 +115,6 @@ void LCD_direction(uint8_t direction );
 
 void LCD_Fill(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t color);
 void LCD_Fill_BUF(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t *color);
+void LCD_Fill_BUF_2(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint8_t *color);//´«ÊäÉãÏñÍ·Í¼Ïñ
 
 #endif  

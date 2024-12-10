@@ -31,6 +31,10 @@
 #include "MYMLX90640.h"
 #include "string.h"
 
+//摄像头
+#include "ova5640.h"
+#include "ova5640_demo.h"
+
 extern DMA_HandleTypeDef hdma_memtomem_dma2_stream6;
 extern SPI_HandleTypeDef g_spi2_handle;
 
@@ -81,45 +85,46 @@ int main(void)
     delay_init(480);                        /* 初始化延时 */
     usart_init(115200);                     /* 初始化串口 */
  //   led_init();                             /* 初始化MLX90640 */
-			MLX90640_Init();
+//			MLX90640_Init();
 			
 		  LCD_Init();	   //液晶屏初始化
-	SPI_DMA_Init();
+			SPI_DMA_Init();
 	
-	LCD_direction(3);
+			LCD_direction(3);
 // 				LCD_Clear(RED);
-//	
-//			LCD_SetWindows(1,11,320,20);//设置显示窗口
-
+	
 	
 //			LCD_Fill_BUF(0,0,319,9,ww);
 //			LCD_Fill_BUF(0,160,319,169,ww);
 
-
+//摄像头测试
+	
 	
     while (1)
     {
-			
-//							LCD_SetWindows(1,21,320,30);//设置显示窗口
-//				DMA_Start(ww);
-//				
-//				LCD_SetWindows(1,41,320,50);//设置显示窗口
-//				DMA_Start(ww);
+				demo_run();
+////							LCD_SetWindows(1,21,320,30);//设置显示窗口
+////				DMA_Start(ww);
+////				
+////				LCD_SetWindows(1,41,320,50);//设置显示窗口
+////				DMA_Start(ww);
 
-
-			//检查DMA传输是否完成
+//	//	printf("ok\n");
+//			//检查DMA传输是否完成
 //			if(dmaTransferComplete==48)
 //			{
 //				dmaTransferComplete=0;
+////				
+//					if(Mlx90640_Get_Frame()==1)
+//					{
 //				
-					if(Mlx90640_Get_Frame()==1)
-					{
-				//		printf("ok\n");
 
-					}
+//					}
 //			}
-//			delay_ms(200);
-			Disp_Temp_Pia(); 
+////			delay_ms(200);
+//			Disp_Temp_Pia(); 
+
+
 
     }
 }
