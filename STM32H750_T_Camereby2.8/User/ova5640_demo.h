@@ -22,5 +22,6 @@
 #define __OVA5640_DEMO_H
 
 void demo_run(void);
+void VO5640_Init(void);
 
 #endif

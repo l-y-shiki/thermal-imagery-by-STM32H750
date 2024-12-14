@@ -112,6 +112,7 @@
 ..\..\output\main.o: ..\..\MLX90640\headers\MYMLX90640_API.h
 ..\..\output\main.o: ..\..\MLX90640\headers\MYMLX90640_I2C_Driver.h
 ..\..\output\main.o: ..\..\MLX90640\headers\MYMLX90640.h
+..\..\output\main.o: ..\..\RGB565\RGB565.h
 ..\..\output\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 ..\..\output\main.o: ..\..\OVA5640\ova5640.h
 ..\..\output\main.o: ..\..\User\ova5640_demo.h

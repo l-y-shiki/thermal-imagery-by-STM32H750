@@ -43,14 +43,15 @@ static uint16_t mlx90640_disp_buf[768];		//镜像显示数组
 static uint16_t mlx90640_temp_buf[25];		//双线性内插法后的原始数组
 static uint16_t mlx90640_lcd_buf[100];		//放大后单个网格显示的数组
 static uint16_t mlx90640_line_buf[3200];	//单行的数据数组
+uint16_t temp[76800];
 
 //颜色转换
-typedef struct
-{
-		uint8_t colorR;
-		uint8_t colorG;
-	  uint8_t colorB;
-}RGBcolor;
+//typedef struct
+//{
+//		uint8_t colorR;
+//		uint8_t colorG;
+//	  uint8_t colorB;
+//}RGBcolor;
 RGBcolor color1;
 RGBcolor *color=&color1;
 
@@ -81,7 +82,7 @@ void  mlx90640_buf_copy(void)
 		{
 				for(int j=0;j<32;j++)
 				{
-						mlx90640_disp_buf[i*32+j] = data2.mlx90640To[i*32+j] + 0;
+						mlx90640_disp_buf[i*32+j] = data2.mlx90640To[i*32+31-j] + 0;
 				}
 		}
 }
@@ -177,7 +178,7 @@ void Disp_Temp_Pic(void)
 			count=(uint8_t)data2.mlx90640To[k]*8;
 			if(count>250)
 				count=255;
-			GrayToPseColor(count,&(color->colorR),&(color->colorG),&(color->colorB));	
+			GrayToPseColor(GCM_Pseudo2,count,&(color->colorR),&(color->colorG),&(color->colorB));	
 
 			rgb[k]=RGB565(color->colorR,color->colorG,color->colorB);
 
@@ -198,6 +199,7 @@ void Disp_Temp_Pic(void)
 //滤波数据显示
 void Disp_Temp_Pia(void)
 {
+	uint16_t mts=0,nts=0;
 		uint16_t count = 0;
 		mlx90640_buf_copy();
 	unsigned int j;
@@ -216,7 +218,7 @@ void Disp_Temp_Pia(void)
 			count=(uint8_t)mlx90640_temp_buf[k]*6.7;
 					if(count>250)
 						count=255;
-						GrayToPseColor(count,&(color->colorR),&(color->colorG),&(color->colorB));		
+						GrayToPseColor(GCM_Pseudo2,count,&(color->colorR),&(color->colorG),&(color->colorB));		
 						mlx90640_temp_buf[k] = RGB565(color->colorR,color->colorG,color->colorB);
 }				
 					
@@ -241,6 +243,7 @@ void Disp_Temp_Pia(void)
 						{
 								for(int l=0;l<10;l++)
 								{
+									temp[k*320+j*10+l+i*3200]=mlx90640_lcd_buf[count];
 										mlx90640_line_buf[k*320+j*10+l] = mlx90640_lcd_buf[count];
 										count++;
 								}
@@ -249,7 +252,7 @@ void Disp_Temp_Pia(void)
 						
 				}
 				
-				LCD_Fill_BUF(0,i*10,319,i*10+9,mlx90640_line_buf);
+//				LCD_Fill_BUF(0,i*10,319,i*10+9,mlx90640_line_buf);
 		}
 		
 }

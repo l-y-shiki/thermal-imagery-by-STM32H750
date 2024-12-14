@@ -29,6 +29,7 @@
 #include "MYMLX90640_API.h"
 #include "MYMLX90640_I2C_Driver.h"
 #include "MYMLX90640.h"
+#include "RGB565.h"
 #include "string.h"
 
 //摄像头
@@ -38,10 +39,15 @@
 extern DMA_HandleTypeDef hdma_memtomem_dma2_stream6;
 extern SPI_HandleTypeDef g_spi2_handle;
 
+//调用缓存数据
+extern uint16_t receve[76800];
+extern uint16_t temp[76800];
+uint16_t mix[76800];
+
 uint8_t dmaTransferComplete = 0;
 uint16_t scount=0;
 
-uint16_t ww[6400]; // __attribute__((section(".ARM.__at_0x24000000")));
+uint16_t ww[3200]; // __attribute__((section(".ARM.__at_0x24000000")));
 // uint8_t ww[320] __attribute__((at(0x30000000)));
 
 //SPI回调函数
@@ -70,14 +76,7 @@ int main(void)
 	
 	 uint16_t len;
     uint16_t times = 0;
-	uint16_t q;
-
-
-	for(q=0;q<6400;q++)
-	{
-			ww[q]=0xFFE0;
-	}
-  
+	uint16_t q,nts=0,mts=0;
 	
     sys_cache_enable();                     /* 使能L1-Cache */
     HAL_Init();                             /* 初始化HAL库 */
@@ -85,12 +84,13 @@ int main(void)
     delay_init(480);                        /* 初始化延时 */
     usart_init(115200);                     /* 初始化串口 */
  //   led_init();                             /* 初始化MLX90640 */
-//			MLX90640_Init();
+			MLX90640_Init();
 			
 		  LCD_Init();	   //液晶屏初始化
 			SPI_DMA_Init();
 	
 			LCD_direction(3);
+			VO5640_Init();
 // 				LCD_Clear(RED);
 	
 	
@@ -102,29 +102,56 @@ int main(void)
 	
     while (1)
     {
-				demo_run();
-////							LCD_SetWindows(1,21,320,30);//设置显示窗口
-////				DMA_Start(ww);
-////				
-////				LCD_SetWindows(1,41,320,50);//设置显示窗口
-////				DMA_Start(ww);
-
-//	//	printf("ok\n");
-//			//检查DMA传输是否完成
-//			if(dmaTransferComplete==48)
+								
+//						for(nts=0;nts<24;nts++)
 //			{
-//				dmaTransferComplete=0;
-////				
-//					if(Mlx90640_Get_Frame()==1)
-//					{
-//				
-
-//					}
+//			for(mts=0;mts<3200;mts++)
+//			{
+//				ww[mts]=receve[mts+3200*nts];
+//			
+//			//	printf("%d::::%x\n",mts+3200*nts,receve[mts+3200*nts]);
 //			}
-////			delay_ms(200);
-//			Disp_Temp_Pia(); 
+//				LCD_Fill_BUF(0,10*nts,319,9+10*nts,ww);
+//				delay_us(1500);
+//    }
 
-
-
+//检查DMA传输是否完成
+			if(dmaTransferComplete==48)
+			{
+				dmaTransferComplete=0;			
+					demo_run();
+					if(Mlx90640_Get_Frame()==1)
+					{
+				
+					}
+			}
+//			delay_ms(200);
+			
+			Disp_Temp_Pia(); 
+			
+				for(nts=0;nts<24;nts++)
+			{
+			for(mts=0;mts<3200;mts++)
+			{
+			//	mix[mts+3200*nts]=temp[mts+3200*nts]*0.005+receve[mts+3200*nts]*0.995;
+				mix[mts+3200*nts]=RGB565_change(temp[mts+3200*nts],receve[mts+3200*nts],0.5);
+			
+//				printf("%d::::%x\n",mts+3200*nts,receve[mts+3200*nts]);
+			}
+		//		delay_us(10);
+    }
+			
+			//		//new
+					for(nts=0;nts<24;nts++)
+			{
+			for(mts=0;mts<3200;mts++)
+			{
+				ww[mts]=mix[mts+3200*nts];
+			
+//				printf("%d::::%x\n",mts+3200*nts,receve[mts+3200*nts]);
+			}
+				LCD_Fill_BUF(0,10*nts,319,9+10*nts,ww);
+				delay_us(1);
+    }
     }
 }

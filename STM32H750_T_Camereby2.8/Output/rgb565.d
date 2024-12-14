@@ -100,3 +100,4 @@
 ..\..\output\rgb565.o: ..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_ll_usb.h
 ..\..\output\rgb565.o: ..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_pcd_ex.h
 ..\..\output\rgb565.o: ..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_hcd.h
+..\..\output\rgb565.o: ..\..\RGB565\rgb565.h
