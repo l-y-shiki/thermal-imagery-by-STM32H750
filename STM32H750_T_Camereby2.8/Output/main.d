@@ -104,6 +104,7 @@
 ..\..\output\main.o: ..\..\Drivers\./SYSTEM/usart/usart.h
 ..\..\output\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\..\output\main.o: ..\..\Drivers\./BSP/LED/led.h
+..\..\output\main.o: ..\..\Drivers\./BSP/KEY/key.h
 ..\..\output\main.o: ..\..\spi_lcd\lcd.h
 ..\..\output\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\..\output\main.o: ..\..\spi_lcd\gui.h

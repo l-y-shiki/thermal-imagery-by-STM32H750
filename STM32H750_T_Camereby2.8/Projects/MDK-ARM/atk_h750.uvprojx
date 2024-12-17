@@ -540,6 +540,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\BSP\LED\led.c</FilePath>
             </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Drivers\BSP\KEY\key.c</FilePath>
+            </File>
+            <File>
+              <FileName>key.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Drivers\BSP\KEY\key.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

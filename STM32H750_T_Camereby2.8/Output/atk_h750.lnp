@@ -25,6 +25,7 @@
 "..\..\output\stm32h7xx_hal_dma_ex.o"
 "..\..\output\stm32h7xx_hal_dcmi.o"
 "..\..\output\led.o"
+"..\..\output\key.o"
 "..\..\output\lcd.o"
 "..\..\output\spi.o"
 "..\..\output\my_i2c.o"

@@ -22,6 +22,7 @@
 #include "./SYSTEM/delay/delay.h"
 #include "./SYSTEM/usart/usart.h"
 #include "./BSP/LED/led.h"
+#include "./BSP/KEY/key.h"
 #include "lcd.h"
 #include "gui.h"
 #include "spi.h"
@@ -74,7 +75,7 @@ void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
 int main(void)
 {
 	
-	 uint16_t len;
+	 uint16_t len,keyvalue=1;
     uint16_t times = 0;
 	uint16_t q,nts=0,mts=0;
 	
@@ -83,65 +84,79 @@ int main(void)
     sys_stm32_clock_init(192, 5, 2, 4);     /* 配置时钟，480MHz */
     delay_init(480);                        /* 初始化延时 */
     usart_init(115200);                     /* 初始化串口 */
- //   led_init();                             /* 初始化MLX90640 */
-			MLX90640_Init();
+ //   led_init();                             
+			key_init();														/*初始化按键*/
+			MLX90640_Init();											/* 初始化MLX90640 */
 			
 		  LCD_Init();	   //液晶屏初始化
 			SPI_DMA_Init();
 	
 			LCD_direction(3);
-			VO5640_Init();
-// 				LCD_Clear(RED);
-	
-	
-//			LCD_Fill_BUF(0,0,319,9,ww);
-//			LCD_Fill_BUF(0,160,319,169,ww);
+			VO5640_Init();												/*摄像头初始化*/
 
-//摄像头测试
-	
 	
     while (1)
     {
-								
-//						for(nts=0;nts<24;nts++)
-//			{
-//			for(mts=0;mts<3200;mts++)
-//			{
-//				ww[mts]=receve[mts+3200*nts];
-//			
-//			//	printf("%d::::%x\n",mts+3200*nts,receve[mts+3200*nts]);
-//			}
-//				LCD_Fill_BUF(0,10*nts,319,9+10*nts,ww);
-//				delay_us(1500);
-//    }
+		//	keyvalue=key_scan(&keyvalue);
+			
+		if(KEY0==0)
+		keyvalue++;
+		if(keyvalue==4)
+			keyvalue=1;
+
 
 //检查DMA传输是否完成
-			if(dmaTransferComplete==48)
-			{
-				dmaTransferComplete=0;			
-					demo_run();
-					if(Mlx90640_Get_Frame()==1)
-					{
 				
+//			if(dmaTransferComplete==48)
+//			{
+//				dmaTransferComplete=0;			
+
+//					if(Mlx90640_Get_Frame()==1)
+//					{
+//				
+//					}
+//			}
+
+			
+			if(keyvalue==1)
+			{	
+				demo_run();
+				Mlx90640_Get_Frame();
+				Disp_Temp_Pia(); 		//缓存温度数据
+					for(nts=0;nts<24;nts++)
+				{
+						for(mts=0;mts<3200;mts++)
+					{
+						mix[mts+3200*nts]=RGB565_change(temp[mts+3200*nts],receve[mts+3200*nts],0.5);					//图像融合
 					}
+				}
 			}
-//			delay_ms(200);
 			
-			Disp_Temp_Pia(); 
-			
-				for(nts=0;nts<24;nts++)
+			else if(keyvalue==2)
+			{			demo_run();
+							for(nts=0;nts<24;nts++)
 			{
 			for(mts=0;mts<3200;mts++)
 			{
-			//	mix[mts+3200*nts]=temp[mts+3200*nts]*0.005+receve[mts+3200*nts]*0.995;
-				mix[mts+3200*nts]=RGB565_change(temp[mts+3200*nts],receve[mts+3200*nts],0.5);
-			
-//				printf("%d::::%x\n",mts+3200*nts,receve[mts+3200*nts]);
+				mix[mts+3200*nts]=receve[mts+3200*nts];					//显示可见光图像
 			}
-		//		delay_us(10);
     }
+			}
 			
-			//		//new
+			else if(keyvalue==3)
+			{
+				Mlx90640_Get_Frame();
+				Disp_Temp_Pia();
+					for(nts=0;nts<24;nts++)
+			{
+			for(mts=0;mts<3200;mts++)
+			{
+				mix[mts+3200*nts]=temp[mts+3200*nts];					//显示热成像
+			}
+    }
+			}
+
+
 					for(nts=0;nts<24;nts++)
 			{
 			for(mts=0;mts<3200;mts++)
