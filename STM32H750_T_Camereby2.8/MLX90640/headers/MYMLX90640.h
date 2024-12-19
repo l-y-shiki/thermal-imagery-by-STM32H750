@@ -29,11 +29,13 @@
 void  mlx90640_buf_copy(void);
 void	MLX90640_Init(void);
 uint8_t Mlx90640_Get_Frame(void);
+uint16_t Array_Return_Max_Z(uint16_t array[],uint16_t len);
+uint16_t Array_Return_Min_Z(uint16_t array[],uint16_t len);
 //void GrayToPseColor(uint8_t grayValue, uint8_t *colorR,uint8_t *colorG,uint8_t *colorB);  //灰度-伪彩色变换
 //unsigned short RGB565(unsigned char red, unsigned char green, unsigned char blue);
 void Disp_Temp_Pic(void);
 
-void Disp_Temp_Pia(void);
+void Disp_Temp_Pia(uint8_t mode,uint8_t type);
 
 void Bilinear_Interpolation(uint16_t flag);       //插值算法
 

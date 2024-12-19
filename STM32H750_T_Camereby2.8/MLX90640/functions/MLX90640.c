@@ -44,6 +44,9 @@ static uint16_t mlx90640_temp_buf[25];		//双线性内插法后的原始数组
 static uint16_t mlx90640_lcd_buf[100];		//放大后单个网格显示的数组
 static uint16_t mlx90640_line_buf[3200];	//单行的数据数组
 uint16_t temp[76800];
+uint16_t	mlx90640_max_temp;
+uint16_t	mlx90640_min_temp;
+uint16_t	mlx90640_med_temp;
 
 //颜色转换
 //typedef struct
@@ -165,6 +168,30 @@ uint8_t Mlx90640_Get_Frame(void)
 		return flag;
 }
 
+uint16_t Array_Return_Max_Z(uint16_t array[],uint16_t len)
+{
+		uint16_t out_data = array[0];
+	
+		for(int i=1;i<len;i++)
+		{
+				if(array[i] > out_data)		out_data = array[i];
+		}
+		
+		return out_data;
+}
+
+uint16_t Array_Return_Min_Z(uint16_t array[],uint16_t len)
+{
+		uint16_t out_data = array[0];
+	
+		for(int i=1;i<len;i++)
+		{
+				if(array[i] < out_data)		out_data = array[i];
+		}
+		
+		return out_data;
+}
+
 //原数据显示
 void Disp_Temp_Pic(void)
 {
@@ -196,13 +223,27 @@ void Disp_Temp_Pic(void)
 		LCD_Fill(m[k],j[k],pin_x[k],pin_y[k],rgb[k]);
 	}
 	
-//滤波数据显示
-void Disp_Temp_Pia(void)
+
+/**
+ * @brief       滤波数据处理/显示
+ * @param       mdoe: 显示模式切换，0为绝对温度0-39度显示，1为温差显示，梯度为255/温差
+ *              type:	彩色编码选择，0-10分别对应一种彩色编码，2为伪彩2，用于户外检测，4为金属2，用于检查电路板故障
+ * @retval      无
+ */
+	
+void Disp_Temp_Pia(uint8_t mode,uint8_t type)
 {
 	uint16_t mts=0,nts=0;
 		uint16_t count = 0;
 		mlx90640_buf_copy();
-	unsigned int j;
+	unsigned int j,diff;
+	
+			//获取设备最高最低温度
+		mlx90640_max_temp = Array_Return_Max_Z(mlx90640_disp_buf,768);
+		mlx90640_min_temp = Array_Return_Min_Z(mlx90640_disp_buf,768);
+		mlx90640_med_temp = (mlx90640_disp_buf[399]+mlx90640_disp_buf[400]+mlx90640_disp_buf[431]+mlx90640_disp_buf[432])/4;
+		diff=mlx90640_max_temp-mlx90640_min_temp;
+	printf("diffff:%d\n",diff);
 	
 			//数据显示（滤波优化显示）
 		for(int i=0;i<24;i++)
@@ -215,10 +256,15 @@ void Disp_Temp_Pia(void)
 						//将数据转换为显示颜色
 						for(int k=0;k<25;k++)
 {
-			count=(uint8_t)mlx90640_temp_buf[k]*6.7;
+					if(mode==0)
+					{
+							count=(uint8_t)mlx90640_temp_buf[k]*6.7;
+					}
+					else if(mode==1)
+					count=(uint8_t)(mlx90640_temp_buf[k]-mlx90640_min_temp)*255/diff+64;
 					if(count>250)
 						count=255;
-						GrayToPseColor(GCM_Pseudo2,count,&(color->colorR),&(color->colorG),&(color->colorB));		
+						GrayToPseColor(type,count,&(color->colorR),&(color->colorG),&(color->colorB));		
 						mlx90640_temp_buf[k] = RGB565(color->colorR,color->colorG,color->colorB);
 }				
 					

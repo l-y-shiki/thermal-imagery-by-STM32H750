@@ -33,8 +33,8 @@
 #define KEY1_GPIO_PORT          GPIOE
 #define KEY1_GPIO_PIN           GPIO_PIN_13
 #define KEY1_GPIO_CLK_ENABLE()  do { __HAL_RCC_GPIOH_CLK_ENABLE(); } while (0)
-#define KEY2_GPIO_PORT          GPIOE
-#define KEY2_GPIO_PIN           GPIO_PIN_14
+#define KEY2_GPIO_PORT          GPIOC
+#define KEY2_GPIO_PIN           GPIO_PIN_10
 #define KEY2_GPIO_CLK_ENABLE()  do { __HAL_RCC_GPIOC_CLK_ENABLE(); } while (0)
 
 /* IO²Ù×÷ */

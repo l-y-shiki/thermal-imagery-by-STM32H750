@@ -74,9 +74,8 @@ void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
 	
 int main(void)
 {
-	
-	 uint16_t len,keyvalue=1;
-    uint16_t times = 0;
+	    uint8_t mode=0,type=2;
+	 uint16_t keyvalue=1;
 	uint16_t q,nts=0,mts=0;
 	
     sys_cache_enable();                     /* 使能L1-Cache */
@@ -93,16 +92,29 @@ int main(void)
 	
 			LCD_direction(3);
 			VO5640_Init();												/*摄像头初始化*/
-
 	
     while (1)
     {
 		//	keyvalue=key_scan(&keyvalue);
 			
 		if(KEY0==0)
-		keyvalue++;
-		if(keyvalue==4)
-			keyvalue=1;
+		{
+				while(KEY0==0);
+				keyvalue++;
+		}
+				if(keyvalue==4)
+					keyvalue=1;
+		
+				if(KEY2==0)
+				{
+						while(KEY2==0);
+						type+=2;
+					mode++;
+					if(mode==2)
+						mode=0;
+				}
+						if(type==6)
+							type=2;
 
 
 //检查DMA传输是否完成
@@ -122,7 +134,7 @@ int main(void)
 			{	
 				demo_run();
 				Mlx90640_Get_Frame();
-				Disp_Temp_Pia(); 		//缓存温度数据
+				Disp_Temp_Pia(mode,type); 		//缓存温度数据
 					for(nts=0;nts<24;nts++)
 				{
 						for(mts=0;mts<3200;mts++)
@@ -146,7 +158,7 @@ int main(void)
 			else if(keyvalue==3)
 			{
 				Mlx90640_Get_Frame();
-				Disp_Temp_Pia();
+				Disp_Temp_Pia(mode,type);
 					for(nts=0;nts<24;nts++)
 			{
 			for(mts=0;mts<3200;mts++)
