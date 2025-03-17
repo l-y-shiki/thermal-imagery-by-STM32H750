@@ -30,12 +30,12 @@
 #define ATK_MC5640_RST_GPIO_PORT                GPIOA
 #define ATK_MC5640_RST_GPIO_PIN                 GPIO_PIN_7
 #define ATK_MC5640_RST_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOA_CLK_ENABLE(); }while(0)
-#define ATK_MC5640_PWDN_GPIO_PORT               GPIOC
+#define ATK_MC5640_PWDN_GPIO_PORT               GPIOC 
 #define ATK_MC5640_PWDN_GPIO_PIN                GPIO_PIN_4
 #define ATK_MC5640_PWDN_GPIO_CLK_ENABLE()       do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)
 #if (ATK_MC5640_LED_CTL_BY_OV5640 == 0)
 #define ATK_MC5640_FLASH_GPIO_PORT              GPIOA
-#define ATK_MC5640_FLASH_GPIO_PIN               GPIO_PIN_8
+#define ATK_MC5640_FLASH_GPIO_PIN               GPIO_PIN_8                                                                                        
 #define ATK_MC5640_FLASH_GPIO_CLK_ENABLE()      do{ __HAL_RCC_GPIOA_CLK_ENABLE(); }while(0)
 #endif
 

@@ -243,7 +243,7 @@ void Disp_Temp_Pia(uint8_t mode,uint8_t type)
 		mlx90640_min_temp = Array_Return_Min_Z(mlx90640_disp_buf,768);
 		mlx90640_med_temp = (mlx90640_disp_buf[399]+mlx90640_disp_buf[400]+mlx90640_disp_buf[431]+mlx90640_disp_buf[432])/4;
 		diff=mlx90640_max_temp-mlx90640_min_temp;
-	printf("diffff:%d\n",diff);
+//	printf("diffff:%d\n",diff);
 	
 			//数据显示（滤波优化显示）
 		for(int i=0;i<24;i++)
@@ -258,10 +258,10 @@ void Disp_Temp_Pia(uint8_t mode,uint8_t type)
 {
 					if(mode==0)
 					{
-							count=(uint8_t)mlx90640_temp_buf[k]*6.7;
+							count=(uint8_t)mlx90640_temp_buf[k]*7;
 					}
 					else if(mode==1)
-					count=(uint8_t)(mlx90640_temp_buf[k]-mlx90640_min_temp)*255/diff+64;
+					count=(uint8_t)(mlx90640_temp_buf[k]-mlx90640_min_temp)*255/diff+32;
 					if(count>250)
 						count=255;
 						GrayToPseColor(type,count,&(color->colorR),&(color->colorG),&(color->colorB));		
@@ -458,7 +458,19 @@ void DMA_Start(uint8_t *ww)
 
 }
 
+void DMA_Start_STR(uint8_t *ww)
+{
+				LCD_CS_CLR;
+				LCD_RS_SET;
+	
+	//DMA传输特定字符串信息
+				HAL_SPI_Transmit_DMA(&g_spi2_handle,ww,1024);
+				delay_us(150);
+				HAL_SPI_Abort(&g_spi2_handle);
+		
+					LCD_CS_SET;
 
+}
 
 
 

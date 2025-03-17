@@ -104,12 +104,7 @@ void demo_run(void)
 			for(mts=0;mts<3200;mts++)
 			{
 				receve_t[mts]=receve[mts+3200*nts];
-			
-			//	printf("%d::::%x\n",mts+3200*nts,receve[mts+3200*nts]);
 			}
-//				LCD_Fill_BUF(0,10*nts,319,9+10*nts,receve_t);
-//				delay_us(1500);
-//		}
     }
 }
 

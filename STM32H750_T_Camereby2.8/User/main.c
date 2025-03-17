@@ -40,10 +40,18 @@
 extern DMA_HandleTypeDef hdma_memtomem_dma2_stream6;
 extern SPI_HandleTypeDef g_spi2_handle;
 
+extern uint16_t	mlx90640_max_temp;
+extern uint16_t	mlx90640_min_temp;
+extern uint16_t	mlx90640_med_temp;
+
 //调用缓存数据
 extern uint16_t receve[76800];
 extern uint16_t temp[76800];
 uint16_t mix[76800];
+
+extern uint16_t pixel_buf_min[512];  // "min:"的像素缓冲区
+extern uint16_t pixel_buf_max[512];  // "max:"的像素缓冲区
+extern uint16_t pixel_buf_med[512];  // "med:"的像素缓冲区
 
 uint8_t dmaTransferComplete = 0;
 uint16_t scount=0;
@@ -92,9 +100,21 @@ int main(void)
 	
 			LCD_direction(3);
 			VO5640_Init();												/*摄像头初始化*/
-	
+		
+	Init_StringBuffers();
     while (1)
     {
+//							Show_Str(3,2,WHITE,BLACK,"min:",16,0);
+//							Show_Str(3,16,WHITE,BLACK,"max:",16,0);
+//							Show_Str(3,30,WHITE,BLACK,"med:",16,0);
+//			
+						DMA_ShowString(2,2,pixel_buf_min);
+						DMA_ShowString(2,16,pixel_buf_max);
+						DMA_ShowString(2,30,pixel_buf_med);
+			
+//		LCD_ShowNum(38,2,mlx90640_min_temp,2,16);
+//		LCD_ShowNum(38,16,mlx90640_max_temp,2,16);
+//		LCD_ShowNum(38,30,mlx90640_med_temp,2,16);
 		//	keyvalue=key_scan(&keyvalue);
 			
 		if(KEY0==0)
@@ -107,14 +127,15 @@ int main(void)
 		
 				if(KEY2==0)
 				{
-						while(KEY2==0);
-						type+=2;
-					mode++;
-					if(mode==2)
-						mode=0;
+//						while(KEY2==0);
+//						type+=2;
+//					mode++;
+//					if(mode==2)
+//						mode=0;
+					type++;
 				}
-						if(type==6)
-							type=2;
+						if(type==11)
+							type=1;
 
 
 //检查DMA传输是否完成
@@ -131,10 +152,12 @@ int main(void)
 
 			
 			if(keyvalue==1)
-			{	
-				demo_run();
+			{
+				
 				Mlx90640_Get_Frame();
+				demo_run();
 				Disp_Temp_Pia(mode,type); 		//缓存温度数据
+
 					for(nts=0;nts<24;nts++)
 				{
 						for(mts=0;mts<3200;mts++)
@@ -165,9 +188,9 @@ int main(void)
 			{
 				mix[mts+3200*nts]=temp[mts+3200*nts];					//显示热成像
 			}
+
     }
 			}
-
 
 					for(nts=0;nts<24;nts++)
 			{
@@ -178,7 +201,14 @@ int main(void)
 //				printf("%d::::%x\n",mts+3200*nts,receve[mts+3200*nts]);
 			}
 				LCD_Fill_BUF(0,10*nts,319,9+10*nts,ww);
-				delay_us(1);
+
+//				delay_us(100);
     }
+//					Show_Str(3,2,WHITE,WHITE,"min:",16,1);
+//		LCD_ShowNum(38,2,mlx90640_min_temp,2,16);
+//					Show_Str(3,16,WHITE,WHITE,"max:",16,1);
+//		LCD_ShowNum(38,16,mlx90640_max_temp,2,16);
+//					Show_Str(3,30,WHITE,WHITE,"med:",16,1);
+//		LCD_ShowNum(38,30,mlx90640_med_temp,2,16);
     }
 }

@@ -117,4 +117,7 @@ void LCD_Fill(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t color);
 void LCD_Fill_BUF(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t *color);
 void LCD_Fill_BUF_2(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint8_t *color);//´«ÊäÉãÏñÍ·Í¼Ïñ
 
+void Init_StringBuffers(void);
+void DMA_ShowString(uint16_t x, uint16_t y, uint16_t *buf);
+
 #endif  

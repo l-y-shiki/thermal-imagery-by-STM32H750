@@ -53,6 +53,7 @@
   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 **************************************************************************************************/	
 #include "lcd.h"
+#include "gui.h"
 #include "stdlib.h"	 
 #include "spi.h"
 #include "MYMLX90640.h"
@@ -72,6 +73,10 @@ uint16_t POINT_COLOR = 0x0000,BACK_COLOR = 0xFFFF;
 uint16_t DeviceCode;	 
 
 uint8_t color_double[6400]={0};
+uint8_t color_double2[1024]={0};
+uint16_t pixel_buf_min[512];  // "min:"的像素缓冲区
+uint16_t pixel_buf_max[512];  // "max:"的像素缓冲区
+uint16_t pixel_buf_med[512];  // "med:"的像素缓冲区
 
 /*****************************************************************************
  * @name       :void LCD_WR_REG(u8 data)
@@ -470,4 +475,36 @@ void LCD_Fill_BUF_2(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint8_t *col
 				HAL_SPI_Abort(&g_spi2_handle);
 				LCD_CS_SET;
 }
+
+
+
+// 初始化三个字符串的像素缓冲区（在程序启动时调用一次）
+void Init_StringBuffers(void) 
+{
+	Generate_PixelBuffer("min:", WHITE, BLACK, pixel_buf_min);
+	Generate_PixelBuffer("max:", WHITE, BLACK, pixel_buf_max);
+	Generate_PixelBuffer("med:", WHITE, BLACK, pixel_buf_med);
+}
 	
+/**
+  * @brief  通过DMA加速显示预生成的字符串
+  * @param  x      : 起始X坐标
+  * @param  y      : 起始Y坐标
+  * @param  buf    : 像素缓冲区
+  */
+void DMA_ShowString(uint16_t x, uint16_t y, uint16_t *buf)
+{
+		uint16_t count=0,num=0;
+	
+    // 设置LCD显示窗口（整个字符串区域）
+    LCD_SetWindows(x, y, x+31, y+15);
+		for(count=0;count<512;count++)
+	{
+		num=count*2;
+			color_double2[num]=(buf[count]>>8);
+		num++;
+			color_double2[num]=buf[count];
+	}
+    DMA_Start_STR(color_double2);// 启动DMA传输（假设已配置好DMA和LCD数据寄存器）
+
+}

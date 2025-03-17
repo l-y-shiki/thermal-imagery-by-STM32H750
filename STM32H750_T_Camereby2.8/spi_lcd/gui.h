@@ -22,5 +22,7 @@ void Gui_Drawbmp16(uint16_t x,uint16_t y,const unsigned char *p); //œ‘ æ40*40 QQ
 void gui_circle(int xc, int yc,uint16_t c,int r, int fill);
 void Gui_StrCenter(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t *str,uint8_t size,uint8_t mode);
 void LCD_DrawFillRectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
+
+void Generate_PixelBuffer(uint8_t *str, uint16_t fc, uint16_t bc, uint16_t *buf);
 #endif
 

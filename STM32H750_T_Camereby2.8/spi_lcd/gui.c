@@ -440,12 +440,12 @@ void LCD_ShowNum(uint16_t x,uint16_t y,uint32_t num,uint8_t len,uint8_t size)
 		{
 			if(temp==0)
 			{
-				LCD_ShowChar(x+(size/2)*t,y,POINT_COLOR,BACK_COLOR,' ',size,0);
+				LCD_ShowChar(x+(size/2)*t,y,WHITE,BLACK,' ',size,0);
 				continue;
 			}else enshow=1; 
 		 	 
 		}
-	 	LCD_ShowChar(x+(size/2)*t,y,POINT_COLOR,BACK_COLOR,temp+'0',size,0); 
+	 	LCD_ShowChar(x+(size/2)*t,y,WHITE,BLACK,temp+'0',size,0); 
 	}
 } 
 
@@ -726,5 +726,41 @@ void Gui_Drawbmp16(uint16_t x,uint16_t y,const unsigned char *p) //ÏÔÊ¾40*40 QQÍ
 		Lcd_WriteData_16Bit(picH<<8|picL);  						
 	}	
 	LCD_SetWindows(0,0,lcddev.width-1,lcddev.height-1);//»Ö¸´ÏÔÊ¾´°¿ÚÎªÈ«ÆÁ	
+}
+
+/**
+  * @brief  Éú³É×Ö·û´®µÄÏñËØÑÕÉ«Êý×é£¨ÊÊÅä¶þÎ¬×Ö¿â£©
+  * @param  str    : ÊäÈëµÄ×Ö·û´®£¨´¿ASCII×Ö·û£©
+  * @param  fc     : Ç°¾°É«
+  * @param  bc     : ±³¾°É«
+  * @param  buf    : Êä³öÏñËØ»º³åÇø£¨ÐèÔ¤·ÖÅä×ã¹»¿Õ¼ä£©
+  */
+void Generate_PixelBuffer(uint8_t *str, uint16_t fc, uint16_t bc, uint16_t *buf) {
+    uint32_t buf_index = 0;
+    
+    // ±éÀúÃ¿¸ö×Ö·û
+    for (uint8_t c = 0; c < 4; c++) {
+        // ¼ÆËã×Ö·ûÔÚ×Ö¿âÖÐµÄË÷Òý£¨ASCIIÂë - ' '£©
+        uint8_t char_code = str[c] - ' ';
+        if (char_code >= 94) char_code = 0; // ·ÀÖ¹Ô½½ç
+//			printf(":%d\n",char_code);
+        // »ñÈ¡×Ö·ûµÄ16ÐÐ×ÖÄ£Êý¾Ý
+        const uint8_t *font_data = asc2_1608[char_code];
+        
+        // ±éÀú×Ö·ûµÄÃ¿Ò»ÐÐ£¨¹²16ÐÐ£©
+        for (uint8_t row = 0; row < 16; row++) {
+            uint8_t line = font_data[row]; // µ±Ç°ÐÐµÄÏñËØÊý¾Ý
+//            printf(":%d\n",font_data[row]);
+            // ±éÀúµ±Ç°ÐÐµÄÃ¿Ò»ÁÐ£¨¹²8ÁÐ£¬´Ó×óµ½ÓÒ£©
+            for (uint8_t col = 0; col < 8; col++) {
+                // ÅÐ¶Ïµ±Ç°Î»ÊÇ·ñÎª1£¨×î¸ßÎ»¶ÔÓ¦×î×ó²àÏñËØ£©
+                if (line & (0x80 >> col)) { // 0x80 >> col ±íÊ¾´Ó×óµ½ÓÒÉ¨ÃèÎ»
+                    buf[32*row+8-col+8*c] = fc;   // Ç°¾°É«
+                } else {
+                    buf[32*row+8-col+8*c] = bc;   // ±³¾°É«
+                }
+            }
+        }
+    }
 }
 

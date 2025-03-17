@@ -102,6 +102,7 @@
 ..\..\output\lcd.o: ..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_pcd_ex.h
 ..\..\output\lcd.o: ..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_hcd.h
 ..\..\output\lcd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\..\output\lcd.o: ..\..\spi_lcd\gui.h
 ..\..\output\lcd.o: ..\..\spi_lcd\spi.h
 ..\..\output\lcd.o: ..\..\MLX90640\headers\MYMLX90640.h
 ..\..\output\lcd.o: ..\..\Drivers\./SYSTEM/delay/delay.h
