@@ -119,5 +119,6 @@ void LCD_Fill_BUF_2(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint8_t *col
 
 void Init_StringBuffers(void);
 void DMA_ShowString(uint16_t x, uint16_t y, uint16_t *buf);
+void DMA_ShowNumber(uint16_t x, uint16_t y, uint32_t num, uint8_t len);
 
 #endif  

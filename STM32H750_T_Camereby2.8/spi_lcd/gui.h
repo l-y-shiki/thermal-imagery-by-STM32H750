@@ -24,5 +24,6 @@ void Gui_StrCenter(uint16_t x, uint16_t y, uint16_t fc, uint16_t bc, uint8_t *st
 void LCD_DrawFillRectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
 
 void Generate_PixelBuffer(uint8_t *str, uint16_t fc, uint16_t bc, uint16_t *buf);
+uint16_t Generate_NumberPixelBuffer(uint32_t num, uint8_t len, uint16_t fc, uint16_t bc, uint16_t *buf);
 #endif
 

@@ -101,21 +101,28 @@ int main(void)
 			LCD_direction(3);
 			VO5640_Init();												/*摄像头初始化*/
 		
-	Init_StringBuffers();
+	Init_StringBuffers();											//转存字符串数据
     while (1)
     {
 //							Show_Str(3,2,WHITE,BLACK,"min:",16,0);
 //							Show_Str(3,16,WHITE,BLACK,"max:",16,0);
 //							Show_Str(3,30,WHITE,BLACK,"med:",16,0);
+			
+			
+//							LCD_ShowNum(38,2,mlx90640_min_temp,2,16);
+//							LCD_ShowNum(38,16,mlx90640_max_temp,2,16);
+//							LCD_ShowNum(38,30,mlx90640_med_temp,2,16);
+//							keyvalue=key_scan(&keyvalue);
 //			
 						DMA_ShowString(2,2,pixel_buf_min);
 						DMA_ShowString(2,16,pixel_buf_max);
 						DMA_ShowString(2,30,pixel_buf_med);
 			
-//		LCD_ShowNum(38,2,mlx90640_min_temp,2,16);
-//		LCD_ShowNum(38,16,mlx90640_max_temp,2,16);
-//		LCD_ShowNum(38,30,mlx90640_med_temp,2,16);
-		//	keyvalue=key_scan(&keyvalue);
+						DMA_ShowNumber(38,2,mlx90640_min_temp,2);
+						DMA_ShowNumber(38,16,mlx90640_max_temp,2);
+						DMA_ShowNumber(38,30,mlx90640_med_temp,2);
+			
+
 			
 		if(KEY0==0)
 		{
@@ -204,11 +211,6 @@ int main(void)
 
 //				delay_us(100);
     }
-//					Show_Str(3,2,WHITE,WHITE,"min:",16,1);
-//		LCD_ShowNum(38,2,mlx90640_min_temp,2,16);
-//					Show_Str(3,16,WHITE,WHITE,"max:",16,1);
-//		LCD_ShowNum(38,16,mlx90640_max_temp,2,16);
-//					Show_Str(3,30,WHITE,WHITE,"med:",16,1);
-//		LCD_ShowNum(38,30,mlx90640_med_temp,2,16);
+
     }
 }

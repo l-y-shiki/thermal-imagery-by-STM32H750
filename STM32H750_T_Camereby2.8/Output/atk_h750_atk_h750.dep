@@ -1,6 +1,6 @@
 Dependencies for Project 'atk_h750', Target 'atk_h750': (DO NOT MODIFY !)
 F (..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Source\Templates\arm\startup_stm32h750xx.s)(0x66D824CA)(--cpu Cortex-M7.fp.dp -g --apcs=interwork -I.\RTE\_atk_h750-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 524" --pd "STM32H750xx SETA 1"--list ..\..\output\startup_stm32h750xx.lst --xref -o ..\..\output\startup_stm32h750xx.o --depend ..\..\output\startup_stm32h750xx.d)
-F (..\..\User\main.c)(0x67D7E258)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\STM32H7xx_HAL_Driver\Inc -I ..\..\Middlewares -I ..\..\User -I ..\..\spi_lcd -I ..\..\MLX90640\functions -I ..\..\MLX90640\headers -I ..\..\RGB565 -I ..\..\OVA5640-I.\RTE\_atk_h750-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\..\output\main.o --depend ..\..\output\main.d)
+F (..\..\User\main.c)(0x67D8EC20)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\STM32H7xx_HAL_Driver\Inc -I ..\..\Middlewares -I ..\..\User -I ..\..\spi_lcd -I ..\..\MLX90640\functions -I ..\..\MLX90640\headers -I ..\..\RGB565 -I ..\..\OVA5640-I.\RTE\_atk_h750-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\..\output\main.o --depend ..\..\output\main.d)
 I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x66D824CA)
 I (..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h)(0x66D824CA)
 I (..\..\User\stm32h7xx_hal_conf.h)(0x66D824CA)
@@ -106,14 +106,14 @@ I (..\..\Drivers\./SYSTEM/usart/usart.h)(0x66D824CA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (..\..\Drivers\./BSP/LED/led.h)(0x66D824CA)
 I (..\..\Drivers\./BSP/KEY/key.h)(0x6763E8A5)
-I (..\..\spi_lcd\lcd.h)(0x67D7C47F)
+I (..\..\spi_lcd\lcd.h)(0x67D8E943)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (..\..\spi_lcd\gui.h)(0x67D7CC33)
+I (..\..\spi_lcd\gui.h)(0x67D8E6C5)
 I (..\..\spi_lcd\spi.h)(0x674C223B)
 I (..\..\User\spi_test.h)(0x6755645E)
 I (..\..\MLX90640\headers\MYMLX90640_API.h)(0x67543D34)
 I (..\..\MLX90640\headers\MYMLX90640_I2C_Driver.h)(0x6755815C)
-I (..\..\MLX90640\headers\MYMLX90640.h)(0x67D7C4A6)
+I (..\..\MLX90640\headers\MYMLX90640.h)(0x67D8EA60)
 I (..\..\RGB565\RGB565.h)(0x675D4379)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (..\..\OVA5640\ova5640.h)(0x676577BC)
@@ -428,10 +428,10 @@ I (..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_hcd.h)(0x66D824CA)
 I (..\..\Drivers\./SYSTEM/usart/usart.h)(0x66D824CA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x66D824CA)
-I (..\..\spi_lcd\lcd.h)(0x67D7C47F)
+I (..\..\spi_lcd\lcd.h)(0x67D8E943)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (..\..\spi_lcd\gui.h)(0x67D7CC33)
-I (..\..\MLX90640\headers\MYMLX90640.h)(0x67D7C4A6)
+I (..\..\spi_lcd\gui.h)(0x67D8E6C5)
+I (..\..\MLX90640\headers\MYMLX90640.h)(0x67D8EA60)
 F (..\..\User\ova5640_demo.h)(0x67594622)()
 F (..\..\Drivers\SYSTEM\sys\sys.c)(0x66D824CA)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\STM32H7xx_HAL_Driver\Inc -I ..\..\Middlewares -I ..\..\User -I ..\..\spi_lcd -I ..\..\MLX90640\functions -I ..\..\MLX90640\headers -I ..\..\RGB565 -I ..\..\OVA5640-I.\RTE\_atk_h750-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\..\output\sys.o --depend ..\..\output\sys.d)
 I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x66D824CA)
@@ -2546,8 +2546,8 @@ I (..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_hcd.h)(0x66D824CA)
 I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x66D824CA)
 F (..\..\Drivers\BSP\KEY\key.h)(0x6763E8A5)()
 F (..\..\readme.txt)(0x66D824CA)()
-F (..\..\spi_lcd\lcd.c)(0x67D7DF33)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\STM32H7xx_HAL_Driver\Inc -I ..\..\Middlewares -I ..\..\User -I ..\..\spi_lcd -I ..\..\MLX90640\functions -I ..\..\MLX90640\headers -I ..\..\RGB565 -I ..\..\OVA5640-I.\RTE\_atk_h750-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\..\output\lcd.o --depend ..\..\output\lcd.d)
-I (..\..\spi_lcd\lcd.h)(0x67D7C47F)
+F (..\..\spi_lcd\lcd.c)(0x67D8EA60)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\STM32H7xx_HAL_Driver\Inc -I ..\..\Middlewares -I ..\..\User -I ..\..\spi_lcd -I ..\..\MLX90640\functions -I ..\..\MLX90640\headers -I ..\..\RGB565 -I ..\..\OVA5640-I.\RTE\_atk_h750-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\..\output\lcd.o --depend ..\..\output\lcd.d)
+I (..\..\spi_lcd\lcd.h)(0x67D8E943)
 I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x66D824CA)
 I (..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h)(0x66D824CA)
 I (..\..\User\stm32h7xx_hal_conf.h)(0x66D824CA)
@@ -2649,11 +2649,11 @@ I (..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_ll_usb.h)(0x66D824CA)
 I (..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_pcd_ex.h)(0x66D824CA)
 I (..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_hcd.h)(0x66D824CA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (..\..\spi_lcd\gui.h)(0x67D7CC33)
+I (..\..\spi_lcd\gui.h)(0x67D8E6C5)
 I (..\..\spi_lcd\spi.h)(0x674C223B)
-I (..\..\MLX90640\headers\MYMLX90640.h)(0x67D7C4A6)
+I (..\..\MLX90640\headers\MYMLX90640.h)(0x67D8EA60)
 I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x66D824CA)
-F (..\..\spi_lcd\lcd.h)(0x67D7C47F)()
+F (..\..\spi_lcd\lcd.h)(0x67D8E943)()
 F (..\..\spi_lcd\spi.c)(0x675505BD)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\STM32H7xx_HAL_Driver\Inc -I ..\..\Middlewares -I ..\..\User -I ..\..\spi_lcd -I ..\..\MLX90640\functions -I ..\..\MLX90640\headers -I ..\..\RGB565 -I ..\..\OVA5640-I.\RTE\_atk_h750-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\..\output\spi.o --depend ..\..\output\spi.d)
 I (..\..\spi_lcd\spi.h)(0x674C223B)
 I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x66D824CA)
@@ -2968,8 +2968,8 @@ I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x66D824CA)
 F (..\..\spi_lcd\24cxx.h)(0x674480C1)()
 F (..\..\spi_lcd\font.h)(0x67447D34)()
 F (..\..\spi_lcd\touch.c)(0x67556441)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\STM32H7xx_HAL_Driver\Inc -I ..\..\Middlewares -I ..\..\User -I ..\..\spi_lcd -I ..\..\MLX90640\functions -I ..\..\MLX90640\headers -I ..\..\RGB565 -I ..\..\OVA5640-I.\RTE\_atk_h750-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\..\output\touch.o --depend ..\..\output\touch.d)
-F (..\..\spi_lcd\gui.c)(0x67D7E817)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\STM32H7xx_HAL_Driver\Inc -I ..\..\Middlewares -I ..\..\User -I ..\..\spi_lcd -I ..\..\MLX90640\functions -I ..\..\MLX90640\headers -I ..\..\RGB565 -I ..\..\OVA5640-I.\RTE\_atk_h750-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\..\output\gui.o --depend ..\..\output\gui.d)
-I (..\..\spi_lcd\lcd.h)(0x67D7C47F)
+F (..\..\spi_lcd\gui.c)(0x67D8EAEF)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\STM32H7xx_HAL_Driver\Inc -I ..\..\Middlewares -I ..\..\User -I ..\..\spi_lcd -I ..\..\MLX90640\functions -I ..\..\MLX90640\headers -I ..\..\RGB565 -I ..\..\OVA5640-I.\RTE\_atk_h750-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\..\output\gui.o --depend ..\..\output\gui.d)
+I (..\..\spi_lcd\lcd.h)(0x67D8E943)
 I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x66D824CA)
 I (..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h)(0x66D824CA)
 I (..\..\User\stm32h7xx_hal_conf.h)(0x66D824CA)
@@ -3074,10 +3074,10 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (..\..\spi_lcd\font.h)(0x67447D34)
 I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x66D824CA)
-I (..\..\spi_lcd\gui.h)(0x67D7CC33)
-F (..\..\spi_lcd\gui.h)(0x67D7CC33)()
+I (..\..\spi_lcd\gui.h)(0x67D8E6C5)
+F (..\..\spi_lcd\gui.h)(0x67D8E6C5)()
 F (..\..\spi_lcd\touch.h)(0x67556442)()
-F (..\..\MLX90640\functions\MLX90640.c)(0x67D7D034)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\STM32H7xx_HAL_Driver\Inc -I ..\..\Middlewares -I ..\..\User -I ..\..\spi_lcd -I ..\..\MLX90640\functions -I ..\..\MLX90640\headers -I ..\..\RGB565 -I ..\..\OVA5640-I.\RTE\_atk_h750-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\..\output\mlx90640.o --depend ..\..\output\mlx90640.d)
+F (..\..\MLX90640\functions\MLX90640.c)(0x67D8EA5F)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\STM32H7xx_HAL_Driver\Inc -I ..\..\Middlewares -I ..\..\User -I ..\..\spi_lcd -I ..\..\MLX90640\functions -I ..\..\MLX90640\headers -I ..\..\RGB565 -I ..\..\OVA5640-I.\RTE\_atk_h750-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\..\output\mlx90640.o --depend ..\..\output\mlx90640.d)
 I (..\..\Drivers\./SYSTEM/sys/sys.h)(0x66D824CA)
 I (..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h)(0x66D824CA)
 I (..\..\User\stm32h7xx_hal_conf.h)(0x66D824CA)
@@ -3181,9 +3181,9 @@ I (..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_hcd.h)(0x66D824CA)
 I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x66D824CA)
 I (..\..\MLX90640\headers\MYMLX90640_API.h)(0x67543D34)
 I (..\..\MLX90640\headers\MYMLX90640_I2C_Driver.h)(0x6755815C)
-I (..\..\MLX90640\headers\MYMLX90640.h)(0x67D7C4A6)
+I (..\..\MLX90640\headers\MYMLX90640.h)(0x67D8EA60)
 I (..\..\spi_lcd\spi.h)(0x674C223B)
-I (..\..\spi_lcd\lcd.h)(0x67D7C47F)
+I (..\..\spi_lcd\lcd.h)(0x67D8E943)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (..\..\RGB565\rgb565.h)(0x675D4379)
@@ -3393,7 +3393,7 @@ I (..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_ll_usb.h)(0x66D824CA)
 I (..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_pcd_ex.h)(0x66D824CA)
 I (..\..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_hcd.h)(0x66D824CA)
 I (..\..\Drivers\./SYSTEM/delay/delay.h)(0x66D824CA)
-F (..\..\MLX90640\headers\MYMLX90640.h)(0x67D7C4A6)()
+F (..\..\MLX90640\headers\MYMLX90640.h)(0x67D8EA60)()
 F (..\..\MLX90640\headers\MYMLX90640_API.h)(0x67543D34)()
 F (..\..\MLX90640\headers\MYMLX90640_I2C_Driver.h)(0x6755815C)()
 F (..\..\RGB565\rgb565.c)(0x675D4B30)(--c99 -c --cpu Cortex-M7.fp.dp -g -O0 --apcs=interwork --split_sections -I ..\..\Drivers -I ..\..\Drivers\CMSIS\Include -I ..\..\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I ..\..\Drivers\STM32H7xx_HAL_Driver\Inc -I ..\..\Middlewares -I ..\..\User -I ..\..\spi_lcd -I ..\..\MLX90640\functions -I ..\..\MLX90640\headers -I ..\..\RGB565 -I ..\..\OVA5640-I.\RTE\_atk_h750-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H750xx -DUSE_HAL_DRIVER -DSTM32H750xx-o ..\..\output\rgb565.o --depend ..\..\output\rgb565.d)

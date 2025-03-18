@@ -43,5 +43,6 @@ void SPI_DMA_Init(void);
 void DMA2_Stream3_IRQHandler(void);
 void DMA_Start(uint8_t *ww);
 void DMA_Start_STR(uint8_t *ww);
+void DMA_Start_NUM(uint8_t *ww);
 
 #endif

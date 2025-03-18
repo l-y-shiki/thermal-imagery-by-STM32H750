@@ -764,3 +764,60 @@ void Generate_PixelBuffer(uint8_t *str, uint16_t fc, uint16_t bc, uint16_t *buf)
     }
 }
 
+/**
+  * @brief  生成数字的像素颜色数组（适配二维字库）
+  * @param  num    : 输入的数字（0~4294967295）
+  * @param  len    : 显示的总位数（如5表示显示5位）
+  * @param  fc     : 前景色
+  * @param  bc     : 背景色
+  * @param  buf    : 输出像素缓冲区（需预分配足够空间）
+  * @return 实际显示的有效宽度（像素）
+  */
+uint16_t Generate_NumberPixelBuffer(uint32_t num, uint8_t len, uint16_t fc, uint16_t bc, uint16_t *buf) 
+{
+    uint32_t divisor;
+    uint8_t digit, enshow = 0;
+    uint16_t total_width = 0;
+    const uint8_t *font_data;
+
+    // 遍历每一位数字
+    for (uint8_t c = 0; c < len; c++) {
+        divisor = mypow(10, len - c - 1);
+        digit = (num / divisor) % 10;
+
+        // 处理前导零（跳过开头的零，除非是最后一位）
+        if (!enshow && c < len - 1) {
+            if (digit == 0) {
+                // 填充空格（背景色占位）
+                for (uint8_t row = 0; row < 16; row++) {
+                    for (uint8_t col = 0; col < 8; col++) {
+                        buf[row * (len * 8) + c * 8 +8- col] = bc;
+                    }
+                }
+                total_width += 8;
+                continue;
+            } else {
+                enshow = 1; // 遇到非零，开始显示后续字符
+            }
+        }
+
+        // 获取数字字符的字模数据
+        uint8_t char_code = digit + '0' - ' ';
+        if (char_code >= 94) char_code = 0; // 防止越界
+        font_data = asc2_1608[char_code];
+
+        // 填充当前数字的像素数据
+        for (uint8_t row = 0; row < 16; row++) {
+            uint8_t line = font_data[row];
+            for (uint8_t col = 0; col < 8; col++) {
+                // 计算缓冲区索引：行偏移 + 字符水平偏移 + 列偏移
+                uint32_t index = row * (len * 8) + c * 8 +8- col;
+                buf[index] = (line & (0x80 >> col)) ? fc : bc;
+            }
+        }
+        total_width += 8;
+    }
+
+    return total_width; // 返回实际显示宽度
+}
+

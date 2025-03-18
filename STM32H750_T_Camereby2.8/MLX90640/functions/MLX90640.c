@@ -469,6 +469,19 @@ void DMA_Start_STR(uint8_t *ww)
 				HAL_SPI_Abort(&g_spi2_handle);
 		
 					LCD_CS_SET;
+}
+
+void DMA_Start_NUM(uint8_t *ww)
+{
+				LCD_CS_CLR;
+				LCD_RS_SET;
+	
+	//DMA传输特定字符串信息
+				HAL_SPI_Transmit_DMA(&g_spi2_handle,ww,512);
+				delay_us(150);
+				HAL_SPI_Abort(&g_spi2_handle);
+		
+					LCD_CS_SET;
 
 }
 

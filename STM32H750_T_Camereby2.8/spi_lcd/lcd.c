@@ -72,8 +72,9 @@ _lcd_dev lcddev;
 uint16_t POINT_COLOR = 0x0000,BACK_COLOR = 0xFFFF;  
 uint16_t DeviceCode;	 
 
-uint8_t color_double[6400]={0};
-uint8_t color_double2[1024]={0};
+uint8_t color_double[6400]={0};		//图像数据缓冲区
+uint8_t color_double2[1024]={0};	//字符串数据缓冲区
+uint8_t color_double3[512]={0};	//数字数据缓冲区
 uint16_t pixel_buf_min[512];  // "min:"的像素缓冲区
 uint16_t pixel_buf_max[512];  // "max:"的像素缓冲区
 uint16_t pixel_buf_med[512];  // "med:"的像素缓冲区
@@ -507,4 +508,35 @@ void DMA_ShowString(uint16_t x, uint16_t y, uint16_t *buf)
 	}
     DMA_Start_STR(color_double2);// 启动DMA传输（假设已配置好DMA和LCD数据寄存器）
 
+}
+
+/**
+  * @brief  通过DMA加速显示数字
+  * @param  x      : 起始X坐标
+  * @param  y      : 起始Y坐标
+  * @param  num    : 要显示的数字
+  * @param  len    : 显示的总位数
+  * @param  fc     : 前景色
+  * @param  bc     : 背景色
+  */
+void DMA_ShowNumber(uint16_t x, uint16_t y, uint32_t num, uint8_t len)
+{
+		uint16_t count=0,num2=0;
+    uint16_t buffer_size = len * 16 * 8; // 最大可能像素数
+    uint16_t *buffer = malloc(buffer_size * sizeof(uint16_t));
+    
+    // 生成像素数据并获取实际宽度
+    uint16_t width = Generate_NumberPixelBuffer(num, len, WHITE, BLACK, buffer);
+    
+    // 设置窗口并启动DMA传输
+    LCD_SetWindows(x, y, x + width - 1, y + 15);
+			for(count=0;count<256;count++)
+	{
+		num2=count*2;
+			color_double3[num2]=(buffer[count]>>8);
+		num2++;
+			color_double3[num2]=buffer[count];
+	}
+    DMA_Start_NUM(color_double3);
+    free(buffer);
 }
